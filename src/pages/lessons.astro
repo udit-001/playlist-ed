@@ -8,6 +8,13 @@ import '../styles/main.css';
     <noscript style="background-color:red;padding: 2rem; display:block; text-align: center; color: #fff; position: relative;">Dear User, Looks like you have disabled JavaScript on your browser, please enable it to be able to use our site!</noscript>
     <div id=container>
         <div id=navigator>
+            <div id=bar>
+                <div id=menu>
+                    <a href="/"><i class="icon-left" id="back" style="color:black;"></i></a>
+                    <div id="title"></div>
+                    <i class="icon-cancel" aria-hidden="true" id="close" onclick="collapse()"></i>
+                </div>
+            </div>
             <div id=content-list>
                 <ul id=items>
                 </ul>
