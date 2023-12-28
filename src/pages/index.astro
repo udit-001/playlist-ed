@@ -1,0 +1,185 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { $store } from '../store.js';
+if (Astro.request.method === "POST") {
+  try {
+	return Astro.redirect("lessons");
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout title="YT Playlist Zen">
+	<header>
+		YT Playlist Zen
+	</header>
+	<div class="service-introduction secondary">
+    <p>Dive into your favorite playlists without interruptions or distractions from YouTube's cluttered interface. </p>
+    <p>Simply paste your playlist URL and immerse yourself in uninterrupted entertainment.</p>
+  </div>
+
+  <div class="container">
+    <form method="POST" name="playlist" novalidate>
+      <input type="url" name="url" placeholder="Enter Playlist URL" id="urlInput">
+      <button type="submit" class="submit-btn">Go</button>
+      <p class="error-message" id="errorMessage">Please enter a valid playlist URL</p>
+    </form>
+  </div>
+
+  <div class="example-content">
+    <p>Not sure where to start? Here are a few playlist suggestions, try clicking one of these:</p>
+    <ul class="video-links">
+      <li><a href="https://www.youtube.com/playlist?list=PLhQjrBD2T380F_inVRXMIHCqLaNUd7bN4" target="#">CS50x 2023 Lectures</a></li>
+      <li><a href="https://www.youtube.com/playlist?list=PLph3YM7PV2E5Jc9-marHDoY5ymnDkHCuy" target="#">Class 10 Maths Lessons</a></li>
+    </ul>
+  </div>
+</Layout>
+
+  <style>
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #004346;
+      text-align: center;
+      color: white;
+      padding: 10px 0;
+      font-size: 20px;
+    }
+    .container {
+      margin: 50px auto;
+      text-align: center;
+    }
+    input[type="url"] {
+      padding: 10px;
+      margin-right: 10px;
+      width: 300px;
+      margin-bottom: 10px;
+    }
+    .submit-btn {
+      padding: 10px 20px;
+      background-color: #004346;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    input[type="url"].error{
+        border: 2px solid red;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        50% { transform: translateX(10px); }
+        75% { transform: translateX(-10px); }
+        100% { transform: translateX(0); }
+    }
+
+    .error {
+        animation: shake 350ms;
+    }
+
+    .example-content {
+      padding: 20px;
+      opacity: 0.8; /* Reducing opacity to de-emphasize */
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .video-links {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px; /* Adding some space between heading and links */
+    }
+
+    .video-links li {
+      margin-bottom: 8px; /* Smaller margin for less visual weight */
+    }
+
+    .video-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: normal; /* Reducing font weight for lesser prominence */
+      font-size: 14px; /* Smaller font size */
+      opacity: 0.7; /* Further reducing opacity */
+      transition: opacity 0.3s ease; /* Adding transition for a smoother change */
+    }
+
+    .video-links a:hover {
+      opacity: 1; /* Increasing opacity on hover for visibility */
+    }
+
+    .service-introduction{
+      margin: 15px;
+      padding: 20px;
+      margin: auto 15px;
+      text-align: center;
+    }
+
+    .secondary {
+      opacity: 0.7;
+      /* border: 1px solid #ccc; */
+      padding: 10px; /* Reduced padding */
+      margin-top: 20px;
+    }
+
+    .secondary p {
+      font-size: 14px; /* Reducing font size */
+      margin-bottom: 6px; /* Smaller margin */
+      line-height: 1.4;
+    }
+  </style>
+
+  <script>
+	import { $store } from '../store.js';
+    const form = document.forms['playlist'];
+
+    function isValidYoutubePlaylistURL(url){
+        const youtubePlaylistRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+$/;
+        return youtubePlaylistRegex.test(url);
+    }
+
+    form.addEventListener('submit', function(event) {
+        const urlInput = document.getElementById('urlInput');
+        const playlistUrl = this.elements.url.value;
+
+        const errorMessage = document.getElementById('errorMessage');
+
+        const isValidUrl = isValidYoutubePlaylistURL(playlistUrl);
+
+        if (!isValidUrl) {
+            urlInput.classList.add('error');
+            errorMessage.style.display = 'block';
+        } else {
+            urlInput.classList.remove('error');
+            errorMessage.style.display = 'none';
+            const urlParams = new URLSearchParams(new URL(playlistUrl).search);
+            const playlistId = urlParams.get('list');
+			$store.set([{"playlistId": playlistId}]);
+        }
+    });
+
+    const exampleLinks = document.querySelectorAll(".video-links > li > a");
+
+    exampleLinks.forEach(function (link){
+      link.addEventListener("click", function (event){
+          event.preventDefault();
+          var url = document.getElementById('urlInput');
+          url.value = this.getAttribute("href");
+
+          const btn = document.querySelector(".submit-btn");
+          btn.style.animationName = 'shake';
+          btn.style.animationDuration = '600ms';
+          btn.style.animationIterationCount = 3;
+        });
+    });
+</script>

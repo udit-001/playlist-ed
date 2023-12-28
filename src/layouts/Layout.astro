@@ -1,0 +1,30 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>
+	{title}
+</title>
+</head>
+<body>
+	<slot />
+</body>
+</html>
+
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Muli');
+
+	body {
+		margin: 0;
+		font-family: Muli;
+	}
+</style>
