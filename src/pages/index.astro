@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { $store } from '../store.js';
 if (Astro.request.method === "POST") {
   try {
-	return Astro.redirect("lessons/");
+       return Astro.redirect("lessons/");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -149,6 +149,7 @@ if (Astro.request.method === "POST") {
     }
 
     form.addEventListener('submit', function(event) {
+        event.preventDefault();
         const urlInput = document.getElementById('urlInput');
         const playlistUrl = this.elements.url.value;
 
@@ -164,7 +165,8 @@ if (Astro.request.method === "POST") {
             errorMessage.style.display = 'none';
             const urlParams = new URLSearchParams(new URL(playlistUrl).search);
             const playlistId = urlParams.get('list');
-			$store.set([{"playlistId": playlistId}]);
+            $store.set([{"playlistId": playlistId}]);
+            location.replace("lessons");
         }
     });
 
