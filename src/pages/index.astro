@@ -36,6 +36,14 @@ if (Astro.request.method === "POST") {
       <li><a href="https://www.youtube.com/playlist?list=PLph3YM7PV2E5Jc9-marHDoY5ymnDkHCuy" target="#">Class 10 Maths Lessons</a></li>
     </ul>
   </div>
+
+	<footer class="footer">
+		<label class="checkbox-container">
+		  <input type="checkbox" name="invidious">
+		  <span class="checkmark"></span>
+		  Use Invidious Embeds
+		</label>
+	  </footer>
 </Layout>
 
   <style>
@@ -137,6 +145,70 @@ if (Astro.request.method === "POST") {
       margin-bottom: 6px; /* Smaller margin */
       line-height: 1.4;
     }
+
+    /* Styling for the footer */
+    .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    /* background-color: #f5f5f5; */
+    }
+
+    /* Styling for the checkbox container */
+    .checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    }
+
+    /* Hide the default checkbox */
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    /* Style the custom checkbox */
+    .checkmark {
+      position: relative;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #004346; /* Change border color as needed */
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+
+    /* Style the custom checkmark when checked */
+    .checkbox-container input:checked ~ .checkmark {
+      background-color: #004346; /* Change background color when checked */
+    }
+
+    /* Style the checkmark inside the checkbox */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when the checkbox is checked */
+    .checkbox-container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark icon */
+    .checkmark:after {
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
   </style>
 
   <script>
@@ -165,7 +237,9 @@ if (Astro.request.method === "POST") {
             errorMessage.style.display = 'none';
             const urlParams = new URLSearchParams(new URL(playlistUrl).search);
             const playlistId = urlParams.get('list');
-            $store.set([{"playlistId": playlistId}]);
+            const invidious = document.querySelector("input[name=invidious]");
+            let isInvidious = invidious.checked;
+            $store.set([{"playlistId": playlistId, "isInvidious": isInvidious}]);
             location.replace("lessons");
         }
     });

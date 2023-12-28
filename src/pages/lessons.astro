@@ -117,9 +117,7 @@ import '../styles/main.css';
         document.querySelectorAll("#items > li").forEach(function(e){
             e.addEventListener("click", clicked);
         })
-        var link = video.src;
-        var final = link.split("embed")[0] + "embed/" + videos[0].watchId + "?" + link.split("embed")[1].split("?")[1];
-        video.src = final;
+        setVideoSrc(videos[0].watchId);
     }
 
 
@@ -171,7 +169,12 @@ import '../styles/main.css';
 
     function setVideoSrc(videoId){
         var video = document.getElementById("video-fr");
-        video.src = video.src.split("embed")[0] + "embed/" + videoId + "?" + video.src.split("embed")[1].split("?")[1];
+        if($store.get()[0].isInvidious === true){
+            video.src = "https://invidious.drgns.space/embed/" + videoId;
+        }
+        else{
+            video.src = video.src.split("embed")[0] + "embed/" + videoId + "?" + video.src.split("embed")[1].split("?")[1];
+        }
     }
 
     function handleNavigation(currentPage, totalPages){
@@ -213,5 +216,4 @@ import '../styles/main.css';
 }
 
     pageLoad();
-
 </script>
