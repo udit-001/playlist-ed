@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { $store } from '../store.js';
 if (Astro.request.method === "POST") {
   try {
-	return Astro.redirect("lessons");
+	return Astro.redirect("lessons/");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
