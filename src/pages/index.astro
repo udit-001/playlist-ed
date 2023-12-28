@@ -144,7 +144,7 @@ if (Astro.request.method === "POST") {
     const form = document.forms['playlist'];
 
     function isValidYoutubePlaylistURL(url){
-        const youtubePlaylistRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+$/;
+        const youtubePlaylistRegex = /^(https?:\/\/)?(www\.)?youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+(&[a-zA-Z0-9_=-]+)?$/;
         return youtubePlaylistRegex.test(url);
     }
 
