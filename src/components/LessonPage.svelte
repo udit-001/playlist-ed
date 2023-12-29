@@ -1,12 +1,12 @@
-<Header />
+<Header {loading}/>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-lg-12">
-            <VideoEmbed />
+            <VideoEmbed {loading}/>
         </div>
       </div>
-    <VideoButtons />
-<Sidebar /> 
+    <VideoButtons {loading}/>
+<Sidebar {loading}/>
 </div>
 
 <script>
@@ -23,6 +23,7 @@
     }
 
     let playlistId;
+    let loading = true;
 
     async function fetchPlaylist(playlistId){
         const feedUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + playlistId
@@ -39,6 +40,7 @@
                     output.push({'name': title, 'watchId': videoId});
                 }
                 
+
                 return output;
             }
         );
@@ -49,6 +51,7 @@
         if($playlistLink != ''){
             playlistId = extractPlaylistId($playlistLink)
             $lessons = await fetchPlaylist(playlistId);
+            loading = false;
         }
         else{
             location.replace("/");

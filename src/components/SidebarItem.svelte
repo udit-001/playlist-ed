@@ -9,7 +9,6 @@
     export let index;
     export let watchId;
     export let isActive  = false;
-    let isClicked = false;
 
     function handleClick(index) {
         $activeChildIndex = index;

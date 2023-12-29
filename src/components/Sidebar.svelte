@@ -21,9 +21,15 @@
                   <h6 class=" sidebar-header text-center">Contents</h6>
               </li> -->
               <!-- <li><hr class="sidebar-divider"></li> -->
-              {#each $lessons as lesson, index}
-              <SidebarItem title={lesson.name} {index} isActive={$activeChildIndex === index} watchId={lesson.watchId}/>
-              {/each}
+              {#if  loading}
+                {#each {length: 8} as _, i}
+                  <span class="placeholder col-12 placeholder-lg mb-2 placeholder-wave" class:d-none={!loading}></span>
+                {/each}
+              {:else}
+                {#each $lessons as lesson, index}
+                  <SidebarItem title={lesson.name} {index} isActive={$activeChildIndex === index} watchId={lesson.watchId}/>
+                {/each}
+              {/if}
           </ul>
       </div>
   </nav>
@@ -31,4 +37,5 @@
 <script>
   import { lessons, activeChildIndex } from '../store.js';
   import SidebarItem from './SidebarItem.svelte';
+  export let loading;
 </script>

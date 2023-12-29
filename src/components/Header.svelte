@@ -3,15 +3,17 @@
     <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" aria-label="Close" data-bs-target="#sidebar-example">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand mx-auto" href="#">
+    <a class="navbar-brand mx-auto" href="#" class:d-none={loading}>
         {title}
     </a>
+    <span class="placeholder col-5 mx-auto m-2 placeholder-lg placeholder-wave" class:d-none={!loading}></span>
     </div>
 </nav>
 
 <script>
     import { lessons, activeChildIndex } from "../store.js";
-    export let title = 'Header';
+    export let title;
+    export let loading;
     let currentIndex;
     $: {
         if($lessons.length !== 0){
