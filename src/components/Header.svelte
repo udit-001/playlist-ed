@@ -12,8 +12,8 @@
 
 <script>
     import { lessons, activeChildIndex } from "../store.js";
-    export let title;
-    export let loading;
+    export let loading = false;
+    export let title = '';
     let currentIndex;
     $: {
         if($lessons.length !== 0){
