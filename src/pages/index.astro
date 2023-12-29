@@ -1,0 +1,27 @@
+---
+import HalfmoonLayout from '../layouts/HalfmoonLayout.astro';
+import Header from '../components/Header.svelte';
+import ExampleLinks from '../components/ExampleLinks.svelte';
+import LinkInput from '../components/LinkInput.svelte';
+---
+
+<HalfmoonLayout title="YT Playlist Zen">
+    <Header title="YT Playlist Zen" client:only="svelte"/>
+    <div class="container-fluid">
+        <div class="text-center m-3 mt-5 fs-5">
+            <p>Dive into your favorite playlists without interruptions or distractions from YouTube's cluttered interface. </p>
+            <p>Simply paste your playlist URL and immerse yourself in uninterrupted entertainment.</p>
+          </div>
+        
+          <div class="">
+            <LinkInput client:only="svelte"/>
+          </div>
+          <ExampleLinks client:only="svelte"/>
+    </div>
+</HalfmoonLayout>
+
+<style scoped>
+    :root{
+        --bs-sidebar-width: 0px;
+    }
+</style>
