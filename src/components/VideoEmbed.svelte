@@ -26,6 +26,10 @@
             currentIndex = $activeChildIndex;
             videoId = $lessons[currentIndex].watchId;
             videoUrl = baseUrl + videoId;
+
+            if($useInvidious == 1){
+                videoUrl += "?quality=dash"
+            }
         }
     }
 </script>
