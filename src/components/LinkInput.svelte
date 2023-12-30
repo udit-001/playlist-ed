@@ -64,8 +64,13 @@
     }
 
     function handleSubmit(){
-        var playlistId = extractPlaylistId(url);
-        location.replace("lessons/" + playlistId);
+        if(!isInvalid){
+            var playlistId = extractPlaylistId(url);
+            location.replace("lessons/" + playlistId);
+        }
+        else{
+            return false;
+        }
     }
 </script>
 
