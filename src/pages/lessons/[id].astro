@@ -1,0 +1,10 @@
+---
+import LessonPage from '../../components/LessonPage.svelte';
+import HalfmoonLayout from '../../layouts/HalfmoonLayout.astro';
+
+const { id } = Astro.params;
+---
+
+<HalfmoonLayout title="CS50x 2023 - Lecture 1 - C">
+  <LessonPage client:only="svelte" {id}/>
+</HalfmoonLayout>

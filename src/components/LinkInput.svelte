@@ -13,9 +13,14 @@
         return true;
     }
 
+    function extractPlaylistId(url){
+        const urlParams = new URLSearchParams(new URL(url).search);
+        return urlParams.get('list');
+    }
+
     async function fetchInvidiousInstances(){
-        url = 'https://api.invidious.io/instances.json?sort_by=health'
-        const response = await fetch(url).then(response => response.json()).then(
+        invidiousAPIUrl = 'https://api.invidious.io/instances.json?sort_by=health'
+        const response = await fetch(invidiousAPIUrl).then(response => response.json()).then(
             data => {
                 let filteredUrls = [];
                 for(let i = 0; i < data.length; i++){
@@ -51,7 +56,8 @@
     }
 
     function handleSubmit(){
-        location.replace("lessons")
+        var playlistId = extractPlaylistId(url);
+        location.replace("lessons/" + playlistId);
     }
 </script>
 

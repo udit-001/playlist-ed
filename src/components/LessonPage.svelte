@@ -17,12 +17,8 @@
     import VideoButtons from './VideoButtons.svelte';
     import Header from './Header.svelte';
 
-    function extractPlaylistId(url){
-        const urlParams = new URLSearchParams(new URL(url).search);
-        return urlParams.get('list');
-    }
+    export let id;
 
-    let playlistId;
     let loading = true;
     let baseUrl;
 
@@ -46,10 +42,9 @@
     }
 
 	onMount(async () => {
-        if($playlistLink != ''){
+        if(id !== undefined){
             baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)];
-            playlistId = extractPlaylistId($playlistLink)
-            $lessons = await fetchPlaylist(playlistId);
+            $lessons = await fetchPlaylist(id);
             loading = false;
         }
         else{
