@@ -11,7 +11,7 @@
 
 <script>
     import { onMount } from 'svelte';
-    import { lessons, invidiousInstances } from '../store.js';
+    import { lessons, invidiousInstances, addRecentPlaylist } from '../store.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
@@ -26,6 +26,13 @@
         const url = baseUrl + "/api/v1/playlists/" + playlistId;
         const response = await fetch(url).then(response => response.json()).then(
             data=>{
+                let playlistData = {
+                    title : data["title"],
+                    playlistId : data["playlistId"],
+                    author: data["author"],
+                    authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"]
+                }
+                addRecentPlaylist(playlistData);
                 const videos = data['videos'];
                 var output = [];
                 for (let i = 0; i < videos.length; i++) {

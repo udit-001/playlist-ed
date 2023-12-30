@@ -3,6 +3,7 @@ import HalfmoonLayout from '../layouts/HalfmoonLayout.astro';
 import Header from '../components/Header.svelte';
 import ExampleLinks from '../components/ExampleLinks.svelte';
 import LinkInput from '../components/LinkInput.svelte';
+import RecentPlaylists from '../components/RecentPlaylists.svelte';
 ---
 
 <HalfmoonLayout title="YT Playlist Zen">
@@ -17,6 +18,7 @@ import LinkInput from '../components/LinkInput.svelte';
             <LinkInput client:only="svelte"/>
           </div>
           <ExampleLinks client:only="svelte"/>
+          <RecentPlaylists client:only="svelte"/>
     </div>
 </HalfmoonLayout>
 

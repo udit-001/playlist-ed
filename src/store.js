@@ -24,5 +24,20 @@ export const useInvidious = persistentAtom("useInvidious", true, {
   encode: JSON.stringify,
   decode: JSON.parse
 });
+export const recentPlaylists = persistentAtom('recentPlaylists', [], {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
+
+export function addRecentPlaylist(playlistData){
+  if (recentPlaylists.get().filter(item => item['playlistId'] == playlistData['playlistId']).length > 0){
+    let filteredData = recentPlaylists.get().filter(item => item['playlistId'] != playlistData['playlistId']);
+    recentPlaylists.set([playlistData, ...filteredData]);
+  }
+  else{
+    recentPlaylists.set([playlistData, ...recentPlaylists.get()]);
+  }
+}
+
 export const lessons = atom([]);
 export const activeChildIndex = atom(0);
