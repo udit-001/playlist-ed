@@ -1,5 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
     import { playlistLink, useInvidious, exampleClicked, invidiousInstances } from "../store.js";
     let url = "";
     let isInvalid = true;
@@ -18,7 +17,25 @@
         url = 'https://api.invidious.io/instances.json?sort_by=health'
         const response = await fetch(url).then(response => response.json()).then(
             data => {
-                return data.filter(item => item[1]['type'] === 'https');
+                let filteredUrls = [];
+                for(let i = 0; i < data.length; i++){
+                    var currentItem = data[i][1];
+                    if(currentItem['type'] === 'https'){
+                        if(currentItem.hasOwnProperty('stats')){
+                            var stats = currentItem['stats'];
+                            if(
+                                stats != null && Object.keys(stats['playback']).length > 0){
+                                if(stats['playback']['ratio'] > 0.0){
+                                    filteredUrls.push(data[i]);
+                                }
+                            }
+                            else if(parseFloat(currentItem['monitor']['30dRatio']['ratio']) > 0.0){
+                                filteredUrls.push(data[i]);
+                            }
+                        }
+                    }
+                }
+                return filteredUrls;
             }
         )
         return response.map(item => {return item[1]['uri']})
