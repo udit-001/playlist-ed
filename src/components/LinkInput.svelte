@@ -45,11 +45,9 @@
         url = $playlistLink;
         isInvalid = !isValidYoutubePlaylistURL(url);
         disabled = url === ''? true: isInvalid;
-        if($useInvidious === true){
-            fetchInvidiousInstances().then(
-                response => {$invidiousInstances = response;}
-            )
-        }
+        fetchInvidiousInstances().then(
+            response => {$invidiousInstances = response;}
+        )
     }
 
     function handleSubmit(){

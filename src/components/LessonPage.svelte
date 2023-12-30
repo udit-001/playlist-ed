@@ -11,7 +11,7 @@
 
 <script>
     import { onMount } from 'svelte';
-    import { lessons, playlistLink } from '../store.js';
+    import { lessons, playlistLink, invidiousInstances } from '../store.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
@@ -24,19 +24,17 @@
 
     let playlistId;
     let loading = true;
+    let baseUrl;
 
     async function fetchPlaylist(playlistId){
-        const feedUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + playlistId
-        const url = "https://cors-anywhere.mittaludit98.workers.dev/" + feedUrl;
-        const response = await fetch(url).then(response => response.text()).then(
+        const url = baseUrl + "/api/v1/playlists/" + playlistId;
+        const response = await fetch(url).then(response => response.json()).then(
             data=>{
-                let parser = new DOMParser();
-                let xmlDoc = parser.parseFromString(data, "application/xml");
-                const entries = xmlDoc.getElementsByTagName('entry');
+                const videos = data['videos'];
                 var output = [];
-                for (let i = 0; i < entries.length; i++) {
-                    const videoId = entries[i].getElementsByTagName('yt:videoId')[0].childNodes[0].nodeValue;
-                    const title = entries[i].getElementsByTagName('title')[0].childNodes[0].nodeValue;
+                for (let i = 0; i < videos.length; i++) {
+                    const videoId = videos[i].videoId;
+                    const title = videos[i].title;
                     output.push({'name': title, 'watchId': videoId});
                 }
                 
@@ -49,6 +47,7 @@
 
 	onMount(async () => {
         if($playlistLink != ''){
+            baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)];
             playlistId = extractPlaylistId($playlistLink)
             $lessons = await fetchPlaylist(playlistId);
             loading = false;
