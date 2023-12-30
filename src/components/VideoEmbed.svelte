@@ -7,7 +7,7 @@
 
 
 <script>
-    import { useInvidious, lessons, activeChildIndex } from "../store.js";
+    import { useInvidious, lessons, activeChildIndex, invidiousInstances } from "../store.js";
     export let loading;
 
     let videoId;
@@ -15,7 +15,7 @@
     let baseUrl, videoUrl, currentIndex;
 
     if($useInvidious == 1){
-        baseUrl = "https://yewtu.be/embed/";
+        baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)] + "/embed/";
     }
     else{
         baseUrl = "https://youtube.com/embed/";

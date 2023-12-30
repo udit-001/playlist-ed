@@ -1,5 +1,6 @@
 <script>
-    import { playlistLink, useInvidious, exampleClicked } from "../store.js";
+    import { onMount } from 'svelte';
+    import { playlistLink, useInvidious, exampleClicked, invidiousInstances } from "../store.js";
     let url = "";
     let isInvalid = true;
     let disabled = true;
@@ -13,11 +14,26 @@
         return true;
     }
 
+    async function fetchInvidiousInstances(){
+        url = 'https://api.invidious.io/instances.json?sort_by=health'
+        const response = await fetch(url).then(response => response.json()).then(
+            data => {
+                return data.filter(item => item[1]['type'] === 'https');
+            }
+        )
+        return response.map(item => {return item[1]['uri']})
+    }
+
     $: {
         url = $playlistLink;
         isInvalid = !isValidYoutubePlaylistURL(url);
         disabled = url === ''? true: isInvalid;
         $useInvidious = $useInvidious ? 1: 0;
+        if($useInvidious){
+            fetchInvidiousInstances().then(
+                response => {$invidiousInstances = response;}
+            )
+        }
     }
 
     function handleSubmit(){

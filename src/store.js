@@ -12,6 +12,12 @@ export const $videoLink = atom('');
 export function storeData(data) {
   $store.set([...$store.get(), user]);
 }
+
+export const invidiousInstances = persistentAtom('invidiousInstances', [], {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
+
 export const exampleClicked = atom(0);
 export const playlistLink = persistentAtom('playlistLink', '');
 export const useInvidious = persistentAtom("useInvidious", 1);
