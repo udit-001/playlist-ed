@@ -166,3 +166,6 @@ dist
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/astro,visualstudiocode,node
+
+# Local Netlify folder
+.netlify
