@@ -15,7 +15,7 @@
     let baseUrl, videoUrl, currentIndex;
 
     if($useInvidious === true){
-        baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)] + "/embed/";
+        baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)]["uri"] + "/embed/";
     }
     else{
         baseUrl = "https://youtube.com/embed/";

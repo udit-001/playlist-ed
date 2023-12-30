@@ -19,7 +19,7 @@
     }
 
     async function fetchInvidiousInstances(){
-        invidiousAPIUrl = 'https://api.invidious.io/instances.json?sort_by=health'
+        let invidiousAPIUrl = 'https://api.invidious.io/instances.json?sort_by=health'
         const response = await fetch(invidiousAPIUrl).then(response => response.json()).then(
             data => {
                 let filteredUrls = [];
@@ -31,11 +31,19 @@
                             if(
                                 stats != null && Object.keys(stats['playback']).length > 0){
                                 if(stats['playback']['ratio'] > 0.0){
-                                    filteredUrls.push(data[i]);
+                                    filteredUrls.push({
+                                        "uri": currentItem["uri"],
+                                        "cors": currentItem["cors"],
+                                        "api": currentItem["api"]
+                                    });
                                 }
                             }
                             else if(parseFloat(currentItem['monitor']['30dRatio']['ratio']) > 0.0){
-                                filteredUrls.push(data[i]);
+                                filteredUrls.push({
+                                    "uri": currentItem["uri"],
+                                    "cors": currentItem["cors"],
+                                    "api": currentItem["api"]
+                                });
                             }
                         }
                     }
@@ -43,7 +51,7 @@
                 return filteredUrls;
             }
         )
-        return response.map(item => {return item[1]['uri']})
+        return response;
     }
 
     $: {

@@ -11,7 +11,7 @@
 
 <script>
     import { onMount } from 'svelte';
-    import { lessons, playlistLink, invidiousInstances } from '../store.js';
+    import { lessons, invidiousInstances } from '../store.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
@@ -43,7 +43,8 @@
 
 	onMount(async () => {
         if(id !== undefined){
-            baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)];
+            let apiInvidiousInstances = $invidiousInstances.filter(item => item['api'] === true);
+            baseUrl = apiInvidiousInstances[Math.floor(Math.random() * apiInvidiousInstances.length)]["uri"];
             $lessons = await fetchPlaylist(id);
             loading = false;
         }
