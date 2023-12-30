@@ -28,8 +28,7 @@
         url = $playlistLink;
         isInvalid = !isValidYoutubePlaylistURL(url);
         disabled = url === ''? true: isInvalid;
-        $useInvidious = $useInvidious ? 1: 0;
-        if($useInvidious){
+        if($useInvidious === true){
             fetchInvidiousInstances().then(
                 response => {$invidiousInstances = response;}
             )

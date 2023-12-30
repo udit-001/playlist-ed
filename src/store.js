@@ -20,6 +20,9 @@ export const invidiousInstances = persistentAtom('invidiousInstances', [], {
 
 export const exampleClicked = atom(0);
 export const playlistLink = persistentAtom('playlistLink', '');
-export const useInvidious = persistentAtom("useInvidious", 1);
+export const useInvidious = persistentAtom("useInvidious", true, {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
 export const lessons = atom([]);
 export const activeChildIndex = atom(0);

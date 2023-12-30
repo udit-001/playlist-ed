@@ -14,7 +14,7 @@
 
     let baseUrl, videoUrl, currentIndex;
 
-    if($useInvidious == 1){
+    if($useInvidious === true){
         baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)] + "/embed/";
     }
     else{
@@ -27,7 +27,7 @@
             videoId = $lessons[currentIndex].watchId;
             videoUrl = baseUrl + videoId;
 
-            if($useInvidious == 1){
+            if($useInvidious === true){
                 videoUrl += "?quality=dash"
             }
         }
