@@ -34,7 +34,7 @@ export async function fetchInvidiousInstances(){
                               });
                           }
                       }
-                      else if(parseFloat(currentItem['monitor']['30dRatio']['ratio']) > 0.0){
+                      else if(currentItem['monitor'] !== null && parseFloat(currentItem['monitor']['30dRatio']['ratio']) > 0.0){
                           filteredUrls.push({
                               "uri": currentItem["uri"],
                               "cors": currentItem["cors"],
