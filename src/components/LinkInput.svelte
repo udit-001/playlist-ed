@@ -3,7 +3,7 @@
     import { fetchInvidiousInstances } from "../store/invidious.js"
     import { playlistLink, exampleClicked } from "../store/state.js";
     let url = "";
-    let isInvalid = true;
+    let isValid = true;
     let disabled = true;
 
     function isValidYoutubePlaylistURL(url) {
@@ -22,13 +22,13 @@
 
     $: {
         url = $playlistLink;
-        isInvalid = !isValidYoutubePlaylistURL(url);
-        disabled = url === ''? true: isInvalid;
+        isValid = isValidYoutubePlaylistURL(url);
+        disabled = url === ''? true: !isValid;
         fetchInvidiousInstances();
     }
 
     function handleSubmit(){
-        if(!isInvalid){
+        if(isValid){
             var playlistId = extractPlaylistId(url);
             location.replace("lessons/" + playlistId);
         }
@@ -41,13 +41,13 @@
 <form class="row g-3 m-5 w-md-50 mx-auto needs-validation" method="POST" autocomplete="off" novalidate on:submit|preventDefault={handleSubmit}>
     <div class="input-group ps-0">
         <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-        <div class="form-floating" class:is-invalid={isInvalid}>
+        <div class="form-floating" class:is-invalid={!isValid}>
             <input
                 type="url"
                 class="form-control"
                 id="playlisturl"
                 placeholder=""
-                class:is-invalid={isInvalid}
+                class:is-invalid={!isValid}
                 required
                 bind:value={$playlistLink}
             />
