@@ -1,3 +1,4 @@
+{#if $invidiousInstances.length > 0}
 <Header {loading}/>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -8,10 +9,11 @@
     <VideoButtons {loading}/>
 <Sidebar {loading}/>
 </div>
+{/if}
 
 <script>
     import { onMount } from 'svelte';
-    import { lessons, invidiousInstances, addRecentPlaylist } from '../store.js';
+    import { lessons, invidiousInstances, addRecentPlaylist, fetchInvidiousInstances } from '../store.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
@@ -50,6 +52,9 @@
 
 	onMount(async () => {
         if(id !== undefined){
+            if($invidiousInstances.length == 0){
+                await fetchInvidiousInstances();
+            }
             let apiInvidiousInstances = $invidiousInstances.filter(item => item['api'] === true);
             baseUrl = apiInvidiousInstances[Math.floor(Math.random() * apiInvidiousInstances.length)]["uri"];
             $lessons = await fetchPlaylist(id);

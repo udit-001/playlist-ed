@@ -1,5 +1,5 @@
 <script>
-    import { playlistLink, useInvidious, exampleClicked, invidiousInstances } from "../store.js";
+    import { playlistLink, useInvidious, exampleClicked, fetchInvidiousInstances } from "../store.js";
     let url = "";
     let isInvalid = true;
     let disabled = true;
@@ -18,49 +18,11 @@
         return urlParams.get('list');
     }
 
-    async function fetchInvidiousInstances(){
-        let invidiousAPIUrl = 'https://api.invidious.io/instances.json?sort_by=health'
-        const response = await fetch(invidiousAPIUrl).then(response => response.json()).then(
-            data => {
-                let filteredUrls = [];
-                for(let i = 0; i < data.length; i++){
-                    var currentItem = data[i][1];
-                    if(currentItem['type'] === 'https'){
-                        if(currentItem.hasOwnProperty('stats')){
-                            var stats = currentItem['stats'];
-                            if(
-                                stats != null && Object.keys(stats['playback']).length > 0){
-                                if(stats['playback']['ratio'] > 0.0){
-                                    filteredUrls.push({
-                                        "uri": currentItem["uri"],
-                                        "cors": currentItem["cors"],
-                                        "api": currentItem["api"]
-                                    });
-                                }
-                            }
-                            else if(parseFloat(currentItem['monitor']['30dRatio']['ratio']) > 0.0){
-                                filteredUrls.push({
-                                    "uri": currentItem["uri"],
-                                    "cors": currentItem["cors"],
-                                    "api": currentItem["api"]
-                                });
-                            }
-                        }
-                    }
-                }
-                return filteredUrls;
-            }
-        )
-        return response;
-    }
-
     $: {
         url = $playlistLink;
         isInvalid = !isValidYoutubePlaylistURL(url);
         disabled = url === ''? true: isInvalid;
-        fetchInvidiousInstances().then(
-            response => {$invidiousInstances = response;}
-        )
+        fetchInvidiousInstances();
     }
 
     function handleSubmit(){
