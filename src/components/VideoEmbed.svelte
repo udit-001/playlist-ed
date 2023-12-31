@@ -30,7 +30,7 @@
             videoUrl = baseUrl + videoId;
 
             if($useInvidious === true){
-                videoUrl += "?quality=dash"
+                videoUrl += "?quality=dash&player_style=youtube"
             }
         }
     }
