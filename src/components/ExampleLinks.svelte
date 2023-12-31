@@ -8,7 +8,7 @@
 </div>
 
 <script>
-    import { playlistLink, exampleClicked } from '../store.js';
+    import { playlistLink, exampleClicked } from '../store/state.js';
     let links = [
         {
             'name': 'CS50x 2023 Lectures',

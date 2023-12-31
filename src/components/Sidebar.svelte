@@ -35,7 +35,7 @@
   </nav>
 
 <script>
-  import { lessons, activeChildIndex } from '../store.js';
+  import { lessons, activeChildIndex } from '../store/state.js';
   import SidebarItem from './SidebarItem.svelte';
   export let loading;
 </script>

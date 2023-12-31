@@ -14,7 +14,7 @@
 </nav>
 
 <script>
-    import { lessons, activeChildIndex } from "../store.js";
+    import { lessons, activeChildIndex } from "../store/state.js";
     export let loading = false;
     let title = loading === true ? 'Loading...': 'YT Playlist Zen';
     let currentIndex;

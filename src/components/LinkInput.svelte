@@ -1,5 +1,7 @@
 <script>
-    import { playlistLink, useInvidious, exampleClicked, fetchInvidiousInstances } from "../store.js";
+    import { useInvidious } from "../store/userPreferences.js"
+    import { fetchInvidiousInstances } from "../store/invidious.js"
+    import { playlistLink, exampleClicked } from "../store/state.js";
     let url = "";
     let isInvalid = true;
     let disabled = true;

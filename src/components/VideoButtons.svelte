@@ -11,7 +11,7 @@
 </div>
 
 <script>
-    import { lessons, activeChildIndex } from '../store';
+    import { lessons, activeChildIndex } from '../store/state.js';
     export let loading;
     function goNext(){
         $activeChildIndex += 1;

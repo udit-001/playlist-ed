@@ -29,6 +29,6 @@
 
 <script>
     import { blur } from 'svelte/transition';
-    import { recentPlaylists } from '../store.js'
+    import { recentPlaylists } from '../store/playlist.js'
     import RecentPlaylistItem from './RecentPlaylistItem.svelte';
 </script>

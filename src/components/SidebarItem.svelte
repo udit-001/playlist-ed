@@ -3,7 +3,7 @@
 </li>
 
 <script>
-    import { activeChildIndex } from '../store.js';
+    import { activeChildIndex } from '../store/state.js';
 
     export let title;
     export let index;

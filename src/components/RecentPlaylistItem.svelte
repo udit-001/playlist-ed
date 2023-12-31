@@ -10,7 +10,7 @@
 
 <script>
     import { blur } from 'svelte/transition';
-    import { removePlaylist } from "../store.js";
+    import { removePlaylist } from "../store/playlist.js";
     export let title;
     export let author;
     export let authorImg;
