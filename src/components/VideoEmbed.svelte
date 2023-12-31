@@ -7,15 +7,17 @@
 
 
 <script>
-    import { useInvidious, lessons, activeChildIndex, invidiousInstances } from "../store.js";
+    import { useInvidious } from '../store/userPreferences.js';
+    import { invidiousInstances, activeInvidiousIndex } from '../store/invidious.js';
+    import { lessons, activeChildIndex } from "../store/state.js";
+
     export let loading;
 
     let videoId;
 
     let baseUrl, videoUrl, currentIndex;
-
     if($useInvidious === true){
-        baseUrl = $invidiousInstances[Math.floor(Math.random() * $invidiousInstances.length)]["uri"] + "/embed/";
+        baseUrl = $invidiousInstances[$activeInvidiousIndex]["uri"] + "/embed/";
     }
     else{
         baseUrl = "https://youtube.com/embed/";
