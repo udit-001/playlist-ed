@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>{title}</title>
+</svelte:head>
 <nav class="navbar" style="background-color: var(--bs-content-bg); border-bottom: var(--bs-border-width) solid var(--bs-content-border-color);">
     <div class="container-fluid">
     <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" aria-label="Close" data-bs-target="#sidebar-example">
@@ -13,7 +16,7 @@
 <script>
     import { lessons, activeChildIndex } from "../store.js";
     export let loading = false;
-    export let title = '';
+    let title = loading === true ? 'Loading...': 'YT Playlist Zen';
     let currentIndex;
     $: {
         if($lessons.length !== 0){
