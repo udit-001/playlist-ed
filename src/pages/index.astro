@@ -7,7 +7,7 @@ import RecentPlaylists from '../components/RecentPlaylists.svelte';
 ---
 
 <HalfmoonLayout>
-    <Header client:only="svelte"/>
+    <Header client:load/>
     <div class="container-fluid">
         <div class="text-center m-3 mt-5 fs-5">
             <p>Dive into your favorite playlists without interruptions or distractions from YouTube's cluttered interface. </p>
@@ -15,9 +15,9 @@ import RecentPlaylists from '../components/RecentPlaylists.svelte';
           </div>
         
           <div class="">
-            <LinkInput client:only="svelte"/>
+            <LinkInput client:load/>
           </div>
-          <ExampleLinks client:only="svelte"/>
+          <ExampleLinks client:load/>
           <RecentPlaylists client:only="svelte"/>
     </div>
 </HalfmoonLayout>
