@@ -1,3 +1,4 @@
+{#if $recentPlaylists.length === 0}
 <div class="video-links text-center">
     <p>Not sure where to start? Here are a few playlist suggestions, try clicking one of these:</p>
     <ul class="list-unstyled">
@@ -6,8 +7,10 @@
       {/each}
     </ul>
 </div>
+{/if}
 
 <script>
+    import { recentPlaylists } from '../store/playlist.js';
     import { playlistLink, exampleClicked } from '../store/state.js';
     let links = [
         {
