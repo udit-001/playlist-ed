@@ -39,5 +39,9 @@ export function addRecentPlaylist(playlistData){
   }
 }
 
+export function removePlaylist(playlistId){
+  recentPlaylists.set(recentPlaylists.get().filter(item => item['playlistId'] != playlistId))
+}
+
 export const lessons = atom([]);
 export const activeChildIndex = atom(0);

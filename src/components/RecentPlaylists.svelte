@@ -1,5 +1,5 @@
 {#if $recentPlaylists.length > 0}
-<div class="row">
+<div class="row" transition:blur={{ amount: 8 }}>
     <div class="col-sm-8 mx-auto mt-3 mb-5 order-sm-last">
         <div class="card">
             <div class="card-body">
@@ -13,16 +13,8 @@
                 </div> -->
             </div>
             <ul class="list-group list-group-flush">
-                {#each $recentPlaylists as p}
-                    <li class="list-group-item d-flex align-items-center">
-                        <img src={p.authorImg} width="36" height="36" class="img-fluid rounded-circle flex-shrink-0" alt="Avatar 3">
-                        <div class="mx-3">
-                            <a href="/lessons/{p.playlistId}" class="stretched-link link-underline link-success link-underline-opacity-25">{p.title}</a>
-                            <div class="text-body-secondary">@{p.author}</div>
-                        </div>
-                        <!-- <a href="#" class="btn btn-secondary ms-auto">Remove</a> -->
-                        <!-- <button type="button" class="btn btn-secondary">Remove</button> -->
-                    </li>
+                {#each $recentPlaylists as p (p.playlistId)}
+                    <RecentPlaylistItem title={p.title} author={p.author} authorImg={p.authorImg} playlistId={p.playlistId}/>
                 {/each}
             </ul>
             <!-- <div class="card-body">
@@ -36,5 +28,7 @@
 {/if}
 
 <script>
+    import { blur } from 'svelte/transition';
     import { recentPlaylists } from '../store.js'
+    import RecentPlaylistItem from './RecentPlaylistItem.svelte';
 </script>
