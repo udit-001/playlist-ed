@@ -1,5 +1,6 @@
 <li class="nav-item">
-    <a class="nav-link {isActive ? 'active' : ''}" on:click={() => {handleClick(index)}} href="#" aria-pressed="true">{title}</a>
+    <a class="nav-link {isActive ? 'active' : ''}" on:click={() => {handleClick(index)}} href="#" aria-pressed="true" 
+        bind:this={linkElement}>{title}</a>
 </li>
 
 <script>
@@ -9,6 +10,18 @@
     export let index;
     export let watchId;
     export let isActive  = false;
+    let linkElement;
+
+    $: {
+        if(linkElement !== undefined){
+            if($activeChildIndex === index){
+                linkElement.scrollIntoView({
+                    block: 'start',
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
 
     function handleClick(index) {
         $activeChildIndex = index;
