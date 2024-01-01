@@ -12,11 +12,9 @@
         <!-- </a> -->
           <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#sidebar-example"></button>
     </div>
-      <div class="offcanvas-body">
-          <!-- <div class="mt-2 mb-3">
-              <input type="text" class="form-control" placeholder="Search">
-          </div> -->
-          <ul class="sidebar-nav">
+      <div class="offcanvas-body position-relative pt-0">
+          <SidebarSearch />
+          <ul class="sidebar-nav list">
               <!-- <li>
                   <h6 class=" sidebar-header text-center">Contents</h6>
               </li> -->
@@ -26,7 +24,7 @@
                   <span class="placeholder col-12 placeholder-lg mb-2 placeholder-wave" class:d-none={!loading}></span>
                 {/each}
               {:else}
-                {#each $lessons as lesson, index}
+                {#each queryset as lesson, index}
                   <SidebarItem title={lesson.name} {index} isActive={$activeChildIndex === index} watchId={lesson.watchId}/>
                 {/each}
               {/if}
@@ -35,7 +33,10 @@
   </nav>
 
 <script>
-  import { lessons, activeChildIndex } from '../store/state.js';
+  import { lessons, activeChildIndex, sidebarQuery } from '../store/state.js';
   import SidebarItem from './SidebarItem.svelte';
+  import SidebarSearch from './SidebarSearch.svelte';
   export let loading;
+  let queryset = '';
+  $: queryset = $sidebarQuery !== '' ? $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery) > 0) : $lessons;
 </script>

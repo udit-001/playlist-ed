@@ -7,3 +7,5 @@ export const playlistLink = atom('');
 
 export const lessons = atom([]);
 export const activeChildIndex = atom(0);
+
+export const sidebarQuery = atom('');
