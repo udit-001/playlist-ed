@@ -32,6 +32,9 @@
             if($useInvidious === true){
                 videoUrl += "?quality=dash&player_style=youtube"
             }
+            else{
+                videoUrl += "?rel=0"
+            }
         }
     }
 </script>
