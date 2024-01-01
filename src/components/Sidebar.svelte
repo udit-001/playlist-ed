@@ -38,5 +38,5 @@
   import SidebarSearch from './SidebarSearch.svelte';
   export let loading;
   let queryset = '';
-  $: queryset = $sidebarQuery !== '' ? $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery) > 0) : $lessons;
+  $: queryset = $sidebarQuery !== '' ? $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0) : $lessons;
 </script>
