@@ -16,7 +16,7 @@
         if(linkElement !== undefined){
             if($activeChildIndex === index){
                 linkElement.scrollIntoView({
-                    block: 'start',
+                    block: 'center',
                     behavior: 'smooth'
                 });
             }
