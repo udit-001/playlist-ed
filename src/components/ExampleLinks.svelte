@@ -1,16 +1,13 @@
-{#if $recentPlaylists.length === 0}
-<div class="video-links text-center">
-    <p>Not sure where to start? Here are a few playlist suggestions, try clicking one of these:</p>
-    <ul class="list-unstyled">
+<div class="video-links text-center mt-2">
+    <p>For inspiration, here are a few playlists you might enjoy:</p>
+    <ul class="list-unstyled mt-1">
       {#each links as link}
       <li><a href={link.url} target="#" on:click|preventDefault={() => onClick(link.url)}>{link.name}</a></li>
       {/each}
     </ul>
 </div>
-{/if}
 
 <script>
-    import { recentPlaylists } from '../store/playlist.js';
     import { playlistLink, exampleClicked } from '../store/state.js';
     let links = [
         {

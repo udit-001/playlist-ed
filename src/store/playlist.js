@@ -6,8 +6,12 @@ export const recentPlaylists = persistentAtom('recentPlaylists', [], {
     decode: JSON.parse
 });
 
+export const savedPlaylists = persistentAtom('savedPlaylists', [], {
+    encode: JSON.stringify,
+    decode: JSON.parse
+});
 
-export async function fetchPlaylist(playlistId, validityCheck=false){
+export async function fetchPlaylist(playlistId){
     var baseUrl = apiInvidiousInstances.get()[Math.floor(Math.random() * apiInvidiousInstances.get().length)]["uri"];
     const url = baseUrl + "/api/v1/playlists/" + playlistId;
     const response = await fetch(url).then(response => {
@@ -17,7 +21,6 @@ export async function fetchPlaylist(playlistId, validityCheck=false){
     return response.json()
     }).then(
         data=>{
-            if(!validityCheck){
             let playlistData = {
                 title : data["title"],
                 playlistId : data["playlistId"],
@@ -26,7 +29,6 @@ export async function fetchPlaylist(playlistId, validityCheck=false){
                 playlistThumbnail: data["playlistThumbnail"]
             }
             addRecentPlaylist(playlistData);
-            }
             const videos = data['videos'];
             var output = [];
             for (let i = 0; i < videos.length; i++) {
@@ -50,6 +52,15 @@ export function addRecentPlaylist(playlistData){
     }
 }
 
-export function removePlaylist(playlistId){
+export function removeRecentPlaylist(playlistId){
     recentPlaylists.set(recentPlaylists.get().filter(item => item['playlistId'] != playlistId))
+}
+
+export function savePlaylist(playlistId){
+    let playlistData = recentPlaylists.get().filter(item => item['playlistId'] === playlistId)[0];
+    savedPlaylists.set([playlistData, ...savedPlaylists.get()]);
+}
+
+export function unsavePlaylist(playlistId){
+    savedPlaylists.set(savedPlaylists.get().filter(item => item['playlistId'] != playlistId))
 }

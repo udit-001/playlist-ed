@@ -3,7 +3,7 @@ import HalfmoonLayout from '../layouts/HalfmoonLayout.astro';
 import Header from '../components/Header.svelte';
 import ExampleLinks from '../components/ExampleLinks.svelte';
 import LinkInput from '../components/LinkInput.svelte';
-import RecentPlaylists from '../components/RecentPlaylists.svelte';
+import Playlists from '../components/Playlists.svelte';
 ---
 
 <HalfmoonLayout>
@@ -17,8 +17,7 @@ import RecentPlaylists from '../components/RecentPlaylists.svelte';
           <div class="">
             <LinkInput client:load/>
           </div>
-          <ExampleLinks client:load/>
-          <RecentPlaylists client:only="svelte"/>
+          <Playlists client:load/>
     </div>
 </HalfmoonLayout>
 
