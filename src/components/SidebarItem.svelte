@@ -4,7 +4,7 @@
 </li>
 
 <script>
-    import { activeChildIndex } from '../store/state.js';
+    import { activeChildIndex, sidebarQuery, lessons } from '../store/state.js';
 
     export let title;
     export let index;
@@ -24,6 +24,13 @@
     }
 
     function handleClick(index) {
-        $activeChildIndex = index;
+        if($sidebarQuery === ''){
+            $activeChildIndex = index;
+        }
+        else{
+            let filteredQuery = $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0);
+            let matchedVideoId = filteredQuery[index]['watchId'];
+            $activeChildIndex = $lessons.findIndex(item => item['watchId'] === matchedVideoId);
+        }
     }
 </script>
