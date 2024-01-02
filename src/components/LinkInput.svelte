@@ -9,7 +9,7 @@
     function isValidYoutubePlaylistURL(url) {
         if (url) {
             const youtubePlaylistRegex =
-                /^(https?:\/\/)?(www\.)?(m.)?youtube\.com\/playlist\?list=[a-zA-Z0-9_-]+(&[a-zA-Z0-9_=-]+)?$/;
+                /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com\/(?:watch\?v=[a-zA-Z0-9_-]+&)?|youtube\.com\/playlist\/?)\??list=[a-zA-Z0-9_-]+(?:&[a-zA-Z0-9_=-]+)?$/;
             return youtubePlaylistRegex.test(url);
         }
         return true;
