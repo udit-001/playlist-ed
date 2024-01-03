@@ -1,4 +1,4 @@
-const { id } = Astro.params;
+import { defineMiddleware } from "astro/middleware";
 
 export async function fetchInvidiousInstances(){
     let invidiousAPIUrl = 'https://api.invidious.io/instances.json?sort_by=health'
