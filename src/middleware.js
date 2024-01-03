@@ -36,13 +36,15 @@ export async function fetchInvidiousInstances(){
             return filteredUrls;
         }
     )
+    return response;
   }
 
 
 export async function fetchPlaylistDetails(playlistId){
     let instances = await fetchInvidiousInstances();
-    let apiInstances = instances.filter(i => i['api'] === true)
+    let apiInstances = instances.filter(i => i['api'] === true);
     var baseUrl = apiInstances[Math.floor[Math.random() * apiInstances.length]]['uri'];
+    const url = baseUrl + "/api/v1/playlists/" + playlistId;
     const response = await fetch(url).then(response => {
         if(!response.ok){
             throw new Error(`HTTP Error! Status: ${response.status}`);
