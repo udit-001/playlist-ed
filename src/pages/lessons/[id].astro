@@ -3,6 +3,7 @@ import LessonPage from '../../components/LessonPage.svelte';
 import HalfmoonLayout from '../../layouts/HalfmoonLayout.astro';
 
 const { id } = Astro.params;
+Astro.locals.params = Astro.params;
 ---
 
 <HalfmoonLayout>

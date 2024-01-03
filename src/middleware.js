@@ -60,9 +60,9 @@ export async function fetchPlaylistDetails(playlistId){
     }
 }
 
-export const onRequest = async (context, next) => {
+export const onRequest = async ({locals, request}, next) => {
     if (context.url.pathname.includes("lessons") > 0) {
-        var { id } = context.url.params;
+        var { id } = locals.params;
         var playlistData = await fetchPlaylistDetails(id);
 
         return new Response(JSON.stringify(playlistData),
