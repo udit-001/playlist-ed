@@ -62,8 +62,8 @@ export async function fetchPlaylistDetails(playlistId){
 
 export const onRequest = async (context, next) => {
     if (context.url.pathname.includes("lessons") > 0) {
-        var { playlistId } = context.url.params;
-        var playlistData = await fetchPlaylistDetails(playlistId);
+        var { id } = context.url.params;
+        var playlistData = await fetchPlaylistDetails(id);
 
         return new Response(JSON.stringify(playlistData),
           {
