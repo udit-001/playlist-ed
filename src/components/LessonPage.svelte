@@ -20,6 +20,7 @@
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
     import Header from './Header.svelte';
+    import { navigate } from 'astro:transitions/client';
 
     export let id;
 
@@ -35,7 +36,7 @@
                 loading = false;
             }
             catch{
-                location.replace("/");
+                navigate("/");
             }
         }
     });
