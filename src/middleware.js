@@ -43,9 +43,9 @@ export async function fetchInvidiousInstances(){
 export async function fetchPlaylistDetails(playlistId){
     let instances = await fetchInvidiousInstances();
     let apiInstances = instances.filter(i => i['api'] === true);
-    var baseUrl = apiInstances[Math.floor[Math.random() * apiInstances.length]]['uri'];
+    var baseUrl = apiInstances[0]['uri'];
     const url = baseUrl + "/api/v1/playlists/" + playlistId;
-    const response = await fetch(url).then(response => {
+    const data = await fetch(url).then(response => {
         if(!response.ok){
             throw new Error(`HTTP Error! Status: ${response.status}`);
         }
@@ -62,14 +62,16 @@ export async function fetchPlaylistDetails(playlistId){
 
 export const onRequest = async (context, next) => {
     if (context.url.pathname.includes("lessons") > 0) {
-        var { id } = context.locals.params;
+        var id  = context.url.pathname.split("/")[2];
         var playlistData = await fetchPlaylistDetails(id);
 
-        return new Response(JSON.stringify(playlistData),
-          {
+        const response = await next();
+        const html = await response.text();
+        var updatedHtml = html.replace("META TITLE", playlistData.title);
+        return new Response(updatedHtml, {
             status: 200,
-          }
-        );
+            headers: response.headers
+        });
       }
       return next();
     };
