@@ -1,6 +1,6 @@
 <div class="filter-docs sticky-top p-3">
     <div class:input-group={$sidebarQuery !== ""}>
-    <input type="search" class="form-control" placeholder="Search" aria-label="Search" bind:value={$sidebarQuery}>
+    <input type="text" class="form-control" placeholder="Search" aria-label="Search" bind:value={$sidebarQuery}>
     <button type="button" class="btn btn-secondary" aria-label="Close" on:click={clearQuery} aria-expanded="false" class:d-none={$sidebarQuery === ""} class:rounded={$sidebarQuery === ""}>
         <i class="bi bi-x"></i>
     </button>
