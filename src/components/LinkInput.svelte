@@ -2,6 +2,8 @@
     import { useInvidious } from "../store/userPreferences.js"
     import { fetchInvidiousInstances } from "../store/invidious.js"
     import { playlistLink, exampleClicked } from "../store/state.js";
+    import { navigate } from 'astro:transitions/client';
+    import { prefetch } from 'astro:prefetch';
     let url = "";
     let isValid = true;
     let disabled = true;
@@ -30,7 +32,8 @@
     function handleSubmit(){
         if(isValid){
             var playlistId = extractPlaylistId(url);
-            location.replace("lessons/" + playlistId);
+            prefetch("lessons/" + playlistId, { with: 'fetch' });
+            navigate("lessons/" + playlistId);
         }
         else{
             return false;
