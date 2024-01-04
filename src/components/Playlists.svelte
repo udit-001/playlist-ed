@@ -2,7 +2,7 @@
     <div class="col-md-8 col-11 mx-auto mt-3 mb-5 order-sm-last">
         <div class="card">
             <div class="card-header">
-                <ul class="nav nav-pills nav-justified mx-5 px-5 card-header-pills" id="js-tabs-1" role="tablist">
+                <ul class="nav nav-pills nav-justified mx-3 px-3 mx-md-4 px-md-4 mx-lg-5 px-lg-5 px-sm-4 mx-sm-4 card-header-pills" id="js-tabs-1" role="tablist">
                     <li class="nav-item d-flex align-items-center" role="presentation">
                       <button class="nav-link active" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
                         <i class="bi bi-clock-history me-2"></i> Recent</button>
