@@ -67,7 +67,8 @@ export const onRequest = async (context, next) => {
 
         const response = await next();
         const html = await response.text();
-        var updatedHtml = html.replace("YT Playlist Zen", playlistData.title).replaceAll("META TITLE", playlistData.title).replace("META IMAGE", playlistData.playlistThumbnail);
+        var highResThumbnail = playlistData.playlistThumbnail.replace("hqdefault.jpg", "sddefault.jpg")
+        var updatedHtml = html.replace("YT Playlist Zen", playlistData.title).replaceAll("META TITLE", playlistData.title).replace("META IMAGE", highResThumbnail);
         return new Response(updatedHtml, {
             status: 200,
             headers: response.headers
