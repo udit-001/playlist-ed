@@ -1,6 +1,6 @@
 <script>
     import { useInvidious } from "../store/userPreferences.js"
-    import { fetchInvidiousInstances } from "../store/invidious.js"
+    import { invidiousInstances, fetchInvidiousInstances } from "../store/invidious.js"
     import { playlistLink, exampleClicked } from "../store/state.js";
     import { navigate } from 'astro:transitions/client';
     import { prefetch } from 'astro:prefetch';
@@ -26,7 +26,9 @@
         url = $playlistLink;
         isValid = isValidYoutubePlaylistURL(url);
         disabled = url === ''? true: !isValid;
-        fetchInvidiousInstances();
+        if($invidiousInstances.length == 0){
+            fetchInvidiousInstances();
+        }
     }
 
     function handleSubmit(){
