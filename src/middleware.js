@@ -56,7 +56,7 @@ export async function fetchPlaylistDetails(playlistId){
         playlistId : data["playlistId"],
         author: data["author"],
         authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"],
-        playlistThumbnail: data["playlistThumbnail"]
+        playlistThumbnail: data["videos"][0]["videoThumbnails"][0]
     }
 }
 
@@ -67,8 +67,7 @@ export const onRequest = async (context, next) => {
 
         const response = await next();
         const html = await response.text();
-        var highResThumbnail = playlistData.playlistThumbnail.replace("hqdefault.jpg", "sddefault.jpg")
-        var updatedHtml = html.replace("YT Playlist Zen", playlistData.title).replaceAll("META TITLE", playlistData.title).replace("META IMAGE", highResThumbnail);
+        var updatedHtml = html.replace("YT Playlist Zen", playlistData.title).replaceAll("META TITLE", playlistData.title).replace("META IMAGE", playlistData.playlistThumbnail);
         return new Response(updatedHtml, {
             status: 200,
             headers: response.headers
