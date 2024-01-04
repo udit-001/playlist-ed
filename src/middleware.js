@@ -67,6 +67,7 @@ export const onRequest = async (context, next) => {
 
         const response = await next();
         const html = await response.text();
+        console.log(playlistData.title);
         var updatedHtml = html.replace("META TITLE", playlistData.title);
         return new Response(updatedHtml, {
             status: 200,
