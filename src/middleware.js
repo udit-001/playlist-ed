@@ -56,7 +56,7 @@ export async function fetchPlaylistDetails(playlistId){
         playlistId : data["playlistId"],
         author: data["author"],
         authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"],
-        playlistThumbnail: data["videos"][0]["videoThumbnails"][0]
+        playlistThumbnail: data["videos"][0]["videoThumbnails"][0]["url"]
     }
 }
 
