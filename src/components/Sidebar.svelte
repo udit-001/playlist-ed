@@ -9,11 +9,14 @@
           <h5 class="mx-auto align-middle mb-0 fw-normal">
             Contents
           </h5>
+          <button type="button" class="btn btn-secondary ms-auto">
+            <i class="bi bi-bookmark-plus-fill"></i>
+          </button>
         <!-- </a> -->
           <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#sidebar-example"></button>
     </div>
+    <SidebarSearch />
       <div class="offcanvas-body position-relative pt-0">
-          <SidebarSearch />
           <ul class="sidebar-nav list">
               <!-- <li>
                   <h6 class=" sidebar-header text-center">Contents</h6>
@@ -25,7 +28,7 @@
                 {/each}
               {:else}
                 {#each queryset as lesson, index}
-                  <SidebarItem title={lesson.name} {index} isActive={$activeChildIndex === index} watchId={lesson.watchId}/>
+                  <SidebarItem title={lesson.name} {index} isActive={lesson.watchId === videoId} watchId={lesson.watchId}/>
                 {/each}
               {/if}
           </ul>
@@ -33,10 +36,12 @@
   </nav>
 
 <script>
-  import { lessons, activeChildIndex, sidebarQuery } from '../store/state.js';
+  import { onMount } from 'svelte';
+  import { lessons, sidebarQuery } from '../store/state.js';
   import SidebarItem from './SidebarItem.svelte';
   import SidebarSearch from './SidebarSearch.svelte';
   export let loading;
+  export let videoId;
   let queryset = '';
   $: queryset = $sidebarQuery !== '' ? $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0) : $lessons;
 </script>

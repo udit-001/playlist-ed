@@ -1,13 +1,13 @@
 {#if $invidiousInstances.length > 0}
-<Header {loading}/>
+<Header {loading} {videoId}/>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-lg-12">
-            <VideoEmbed {loading}/>
+            <VideoEmbed {loading} {videoId}/>
         </div>
       </div>
-    <VideoButtons {loading}/>
-<Sidebar {loading}/>
+    <VideoButtons {loading} {videoId}/>
+<Sidebar {loading} {videoId}/>
 </div>
 {/if}
 
@@ -15,25 +15,31 @@
     import { onMount } from 'svelte';
     import { invidiousInstances, fetchInvidiousInstances } from '../store/invidious.js';
     import { fetchPlaylist } from '../store/playlist.js';
-    import { lessons } from '../store/state.js';
+    import { lessons, nextVideo, prevVideo } from '../store/state.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
     import Header from './Header.svelte';
     import { navigate } from 'astro:transitions/client';
 
-    export let id;
+    export let playlistId;
+    export let videoId;
 
-    let loading = true;
+    let loading = false;
 
 	onMount(async () => {
-        if(id !== undefined){
+        if(playlistId !== undefined){
             try{
                 if($invidiousInstances.length == 0){
                     await fetchInvidiousInstances();
                 }
-                $lessons = await fetchPlaylist(id);
-                loading = false;
+                if($lessons.length == 0){
+                    $lessons = await fetchPlaylist(playlistId);
+                    currentIndex = $lessons.findIndex(item => item['watchId'] == videoId);
+                    $nextVideo = $lessons[currentIndex + 1]['watchId'];
+                    $prevVideo = $lessons[currentIndex - 1]['watchId'];
+                    loading = false;
+                }
             }
             catch{
                 navigate("/");

@@ -12,8 +12,7 @@
     import { lessons, activeChildIndex } from "../store/state.js";
 
     export let loading;
-
-    let videoId;
+    export let videoId;
 
     let baseUrl, videoUrl, currentIndex;
     if($useInvidious === true){
@@ -26,7 +25,6 @@
     $: {
         if($lessons.length !== 0){
             currentIndex = $activeChildIndex;
-            videoId = $lessons[currentIndex].watchId;
             videoUrl = baseUrl + videoId;
 
             if($useInvidious === true){

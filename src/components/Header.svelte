@@ -15,13 +15,18 @@
 
 <script>
     import { lessons, activeChildIndex } from "../store/state.js";
-    export let loading = false;
+    export var loading = false;
+    export var videoId;
+
     let title = loading === true ? 'Loading...': 'YT Playlist Zen';
     let currentIndex;
+
     $: {
-        if($lessons.length !== 0){
-            currentIndex = $activeChildIndex;
-            title = $lessons[currentIndex].name;
+        if(videoId !== undefined){
+            if(Array.isArray($lessons) && $lessons.length !== 0){
+                currentIndex = $activeChildIndex;
+                title = $lessons.filter(item => item['watchId'] == videoId)[0]['name'];
+            }
         }
     }
 </script>

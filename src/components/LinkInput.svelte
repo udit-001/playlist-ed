@@ -1,7 +1,8 @@
 <script>
     import { useInvidious } from "../store/userPreferences.js"
     import { invidiousInstances, fetchInvidiousInstances } from "../store/invidious.js"
-    import { playlistLink, exampleClicked } from "../store/state.js";
+    import { fetchPlaylist } from "../store/playlist.js";
+    import { playlistLink, exampleClicked, lessons } from "../store/state.js";
     import { navigate } from 'astro:transitions/client';
     import { prefetch } from 'astro:prefetch';
     let url = "";
@@ -31,11 +32,15 @@
         }
     }
 
-    function handleSubmit(){
+    async function handleSubmit(){
         if(isValid){
             var playlistId = extractPlaylistId(url);
-            prefetch("lessons/" + playlistId, { with: 'fetch' });
-            navigate("lessons/" + playlistId);
+            var data = await fetchPlaylist(playlistId);
+            $lessons = data;
+
+            var videoId = data[0]['watchId'];
+            prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
+            navigate("lessons/" + playlistId + "/" +  videoId);
         }
         else{
             return false;

@@ -1,0 +1,11 @@
+---
+import LessonPage from '../../../components/LessonPage.svelte';
+import HalfmoonLayout from '../../../layouts/HalfmoonLayout.astro';
+import { pageTitle } from '../../../store/state';
+
+const { playlistId, videoId } = Astro.params;
+---
+
+<HalfmoonLayout title={pageTitle}>
+  <LessonPage client:only="svelte" {playlistId} {videoId} />
+</HalfmoonLayout>
