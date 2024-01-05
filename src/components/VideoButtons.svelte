@@ -33,9 +33,15 @@
             if (currentIndex >= 0 && currentIndex <= querySet().length - 1) {
                 if (currentIndex !== 0) {
                     $prevVideo = querySet()[currentIndex - 1]['watchId'];
+                    if($sidebarQuery !== ""){
+                        $prevVideo = $prevVideo + "?q=" + $sidebarQuery;
+                    }
                 }
                 if (currentIndex !== querySet().length - 1) {
                     $nextVideo = querySet()[currentIndex + 1]['watchId'];
+                    if($sidebarQuery !== ""){
+                        $nextVideo = $nextVideo + "?q=" + $sidebarQuery;
+                    }
                 }
             }
     })
