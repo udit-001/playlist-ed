@@ -21,21 +21,25 @@ export async function fetchPlaylist(playlistId){
     return response.json()
     }).then(
         data=>{
-            let playlistData = {
+            var playlistData = {
                 title : data["title"],
                 playlistId : data["playlistId"],
                 author: data["author"],
                 authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"],
                 playlistThumbnail: data["playlistThumbnail"]
             }
-            addRecentPlaylist(playlistData);
             const videos = data['videos'];
             var output = [];
             for (let i = 0; i < videos.length; i++) {
+                if(i === 0){
+                    playlistData['recentVideo'] = videos[i].videoId;
+                    console.log(playlistData);
+                }
                 const videoId = videos[i].videoId;
                 const title = videos[i].title;
                 output.push({'name': title, 'watchId': videoId});
             }
+            addRecentPlaylist(playlistData);
             playlistData["videos"] = output;
             return playlistData;
         }
@@ -64,4 +68,20 @@ export function savePlaylist(playlistId){
 
 export function unsavePlaylist(playlistId){
     savedPlaylists.set(savedPlaylists.get().filter(item => item['playlistId'] != playlistId))
+}
+
+export function addRecentVideo(playlistId, videoId){
+    if(savedPlaylists.get().filter(item => item['playlistId'] === playlistId).length > 0){
+        var playlistData = savedPlaylists.get().filter(item => item['playlistId'] === playlistId)[0];
+        playlistData['recentVideo'] = videoId;
+        var filteredData = savedPlaylists.get().filter(item => item['playlistId'] !== playlistId);
+        savedPlaylists.set([playlistData, ...filteredData]);
+    }
+
+    if(recentPlaylists.get().filter(item => item['playlistId'] === playlistId).length > 0){
+        var playlistData = recentPlaylists.get().filter(item => item['playlistId'] === playlistId)[0];
+        playlistData['recentVideo'] = videoId;
+        var filteredData = recentPlaylists.get().filter(item => item['playlistId'] !== playlistId);
+        recentPlaylists.set([playlistData, ...filteredData]);
+    }
 }

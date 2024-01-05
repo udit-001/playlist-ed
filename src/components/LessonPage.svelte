@@ -14,12 +14,13 @@
 <script>
     import { onMount } from 'svelte';
     import { invidiousInstances, fetchInvidiousInstances } from '../store/invidious.js';
-    import { fetchPlaylist } from '../store/playlist.js';
+    import { fetchPlaylist, addRecentVideo } from '../store/playlist.js';
     import { lessons, nextVideo, prevVideo, sidebarQuery } from '../store/state.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
     import Header from './Header.svelte';
+    import { navigate } from 'astro:transitions/client';
 
     export let playlistId;
     export let videoId;
@@ -55,6 +56,7 @@
                         $sidebarQuery = search.get("q");
                     }
                 }
+                addRecentVideo(playlistId, videoId);
             }
             catch{
                 navigate("/");

@@ -1,7 +1,7 @@
 <li class="list-group-item d-flex align-items-center" transition:blur={{ amount: 7 }}>
     <img src={authorImg} width="36" height="36" class="img-fluid rounded-circle flex-shrink-0" class:opacity-100={isSaved} class:opacity-50={!isSaved} alt={author}>
     <div class="mx-3 position-relative">
-        <a href="/lessons/{playlistId}" class="stretched-link link-underline link-success link-underline-success" class:link-opacity-100={isSaved} class:link-opacity-50={!isSaved}>{title}</a>
+        <a href="/lessons/{playlistId}/{videoId}" class="stretched-link link-underline link-success link-underline-success" class:link-opacity-100={isSaved} class:link-opacity-50={!isSaved}>{title}</a>
         <div class="text-body-secondary" class:text-opacity-100={isSaved} class:text-opacity-50={!isSaved}>@{author}</div>
     </div>
     <button type="button" class="btn btn-secondary ms-auto" disabled={isSaved} on:click={savePlaylist(playlistId)}>
@@ -23,6 +23,7 @@
     export let author;
     export let authorImg;
     export let playlistId;
+    export let videoId;
     let isSaved;
     $: isSaved = $savedPlaylists.filter(item => item['playlistId'] === playlistId).length > 0;
 </script>
