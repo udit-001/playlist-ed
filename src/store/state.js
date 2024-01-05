@@ -8,7 +8,7 @@ export const playlistLink = atom('');
 
 export const playlistId = atom('');
 
-export const lessons = persistentAtom('lessons', [], {
+export const lessons = persistentAtom('lessons', {}, {
     encode: JSON.stringify,
     decode: JSON.parse
 });

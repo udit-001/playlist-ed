@@ -9,12 +9,12 @@
 <script>
     import { useInvidious } from '../store/userPreferences.js';
     import { invidiousInstances, activeInvidiousIndex } from '../store/invidious.js';
-    import { lessons, activeChildIndex } from "../store/state.js";
+    import { lessons } from "../store/state.js";
 
     export let loading;
     export let videoId;
 
-    let baseUrl, videoUrl, currentIndex;
+    let baseUrl, videoUrl;
     if($useInvidious === true){
         baseUrl = $invidiousInstances[$activeInvidiousIndex]["uri"] + "/embed/";
     }
@@ -23,8 +23,7 @@
     }
 
     $: {
-        if($lessons.length !== 0){
-            currentIndex = $activeChildIndex;
+        if(Object.keys($lessons).length !== 0){
             videoUrl = baseUrl + videoId;
 
             if($useInvidious === true){

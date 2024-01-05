@@ -16,33 +16,34 @@
     export let loading;
     export let videoId;
     var currentIndex;
+    var queryset;
 
-    onMount(() => {
-        const querySet = () => {
-                if ($sidebarQuery === "") {
-                return $lessons['videos'];
-                } else {
-                    return $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()));
-                }
-            };
+    $: {
+        if(Object.keys($lessons).length !== 0){
+            if ($sidebarQuery !== "") {
+                queryset = $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()));
+            } else {
+                queryset = $lessons['videos'];
+            }
 
-            currentIndex = querySet().findIndex(item => item['watchId'] == videoId);
+            currentIndex = queryset.findIndex(item => item['watchId'] == videoId);
             $prevVideo = "";
             $nextVideo = "";
 
-            if (currentIndex >= 0 && currentIndex <= querySet().length - 1) {
+            if (currentIndex >= 0 && currentIndex <= queryset.length - 1) {
                 if (currentIndex !== 0) {
-                    $prevVideo = querySet()[currentIndex - 1]['watchId'];
-                    if($sidebarQuery !== ""){
-                        $prevVideo = $prevVideo + "?q=" + $sidebarQuery;
-                    }
+                    $prevVideo = queryset[currentIndex - 1]['watchId'];
                 }
-                if (currentIndex !== querySet().length - 1) {
-                    $nextVideo = querySet()[currentIndex + 1]['watchId'];
-                    if($sidebarQuery !== ""){
-                        $nextVideo = $nextVideo + "?q=" + $sidebarQuery;
-                    }
+                if (currentIndex !== queryset.length - 1) {
+                    $nextVideo = queryset[currentIndex + 1]['watchId'];
                 }
             }
-    })
+            if($nextVideo !== "" && $sidebarQuery !== "" && currentIndex !== queryset.length - 1){
+                $nextVideo = $nextVideo + "?q=" + $sidebarQuery;
+            }
+            if($prevVideo !== "" && $sidebarQuery !== "" && currentIndex !== 0){
+                $prevVideo = $prevVideo + "?q=" + $sidebarQuery;
+            }
+        }
+    }
 </script>

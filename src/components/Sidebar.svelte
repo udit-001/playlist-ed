@@ -41,6 +41,6 @@
   import SidebarSearch from './SidebarSearch.svelte';
   export let loading;
   export let videoId;
-  let queryset = '';
+  let queryset = [];
   $: queryset = $sidebarQuery !== '' ? $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0) : $lessons['videos'];
 </script>

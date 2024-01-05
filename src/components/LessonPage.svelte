@@ -20,13 +20,13 @@
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
     import Header from './Header.svelte';
-    import { navigate } from 'astro:transitions/client';
 
     export let playlistId;
     export let videoId;
     export let query;
 
-    let loading = false;
+    var loading = true;
+    var currentIndex;
 
 	onMount(async () => {
         if(playlistId !== undefined){
@@ -34,11 +34,19 @@
                 if($invidiousInstances.length == 0){
                     await fetchInvidiousInstances();
                 }
-                if($lessons.length == 0 && $lessons['playlistId'] !== playlistId){
+                if(Object.keys($lessons).length === 0 || $lessons['playlistId'] !== playlistId){
                     $lessons = await fetchPlaylist(playlistId);
                     currentIndex = $lessons['videos'].findIndex(item => item['watchId'] == videoId);
                     $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
                     $prevVideo = $lessons['videos'][currentIndex - 1]['watchId'];
+                    loading = false;
+                }
+                else{
+                    currentIndex = $lessons['videos'].findIndex(item => item['watchId'] == videoId);
+                    if(currentIndex > 0){
+                        $prevVideo = $lessons['videos'][currentIndex - 1]['watchId'];
+                    }
+                    $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
                     loading = false;
                 }
                 if(query !== undefined){
