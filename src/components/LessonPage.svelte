@@ -47,7 +47,9 @@
                     if(currentIndex > 0){
                         $prevVideo = $lessons['videos'][currentIndex - 1]['watchId'];
                     }
-                    $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
+                    if(currentIndex < $lessons.videos.length - 1){
+                        $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
+                    }
                     loading = false;
                 }
                 if(query !== undefined){
