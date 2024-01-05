@@ -8,6 +8,7 @@
     let url = "";
     let isValid = true;
     let disabled = true;
+    let loadingButton = false;
 
     function isValidYoutubePlaylistURL(url) {
         if (url) {
@@ -35,12 +36,16 @@
     async function handleSubmit(){
         if(isValid){
             var playlistId = extractPlaylistId(url);
+            disabled = true;
+            loadingButton = true;
             var data = await fetchPlaylist(playlistId);
             $lessons = data;
 
             var videoId = data[0]['watchId'];
             prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
             navigate("lessons/" + playlistId + "/" +  videoId);
+            loadingButton = false;
+            disabled = false;
         }
         else{
             return false;
@@ -60,6 +65,7 @@
                 class:is-invalid={!isValid}
                 required
                 bind:value={$playlistLink}
+                disabled={loadingButton}
             />
             <label for="example-input-7">YouTube Playlist URL</label>
         </div>
@@ -78,9 +84,13 @@
         </label>
     </div>
     <div class="col-12 text-center">
-        <button class="btn btn-primary btn-lg ps-4 pe-4 py-1" class:disabled={disabled} class:move={$exampleClicked} type="submit"
-            >Go</button
-        >
+        <button class="btn btn-primary btn-lg ps-4 pe-4 py-1" class:disabled={disabled} class:move={$exampleClicked} type="submit">
+            {#if loadingButton }
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
+            {:else }
+                Go
+            {/if}
+        </button>
     </div>
 </form>
 
