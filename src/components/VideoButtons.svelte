@@ -11,15 +11,16 @@
 </div>
 
 <script>
+    import { onMount } from 'svelte';
     import { lessons, sidebarQuery, prevVideo, nextVideo } from '../store/state.js';
     export let loading;
     export let videoId;
     var currentIndex;
 
-    $: {
-            const querySet = () => {
+    onMount(() => {
+        const querySet = () => {
                 if ($sidebarQuery === "") {
-                    return $lessons;
+                return $lessons;
                 } else {
                     return $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()));
                 }
@@ -37,5 +38,5 @@
                     $nextVideo = querySet()[currentIndex + 1]['watchId'];
                 }
             }
-    }
+    })
 </script>

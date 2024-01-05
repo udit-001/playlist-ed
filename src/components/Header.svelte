@@ -2,7 +2,7 @@
     <title>{title}</title>
 </svelte:head>
 
-<nav class="navbar" style="background-color: var(--bs-content-bg); border-bottom: var(--bs-border-width) solid var(--bs-content-border-color);">
+<nav class="navbar sticky-top" style="background-color: var(--bs-content-bg); border-bottom: var(--bs-border-width) solid var(--bs-content-border-color);">
     <div class="container-fluid">
     <button class:d-none={videoId === undefined} class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" aria-label="Close" data-bs-target="#sidebar-example">
         <span class="navbar-toggler-icon"></span>

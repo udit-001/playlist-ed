@@ -15,7 +15,7 @@
     import { onMount } from 'svelte';
     import { invidiousInstances, fetchInvidiousInstances } from '../store/invidious.js';
     import { fetchPlaylist } from '../store/playlist.js';
-    import { lessons, nextVideo, prevVideo } from '../store/state.js';
+    import { lessons, nextVideo, prevVideo, sidebarQuery } from '../store/state.js';
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
@@ -24,6 +24,7 @@
 
     export let playlistId;
     export let videoId;
+    export let query;
 
     let loading = false;
 
@@ -39,6 +40,12 @@
                     $nextVideo = $lessons[currentIndex + 1]['watchId'];
                     $prevVideo = $lessons[currentIndex - 1]['watchId'];
                     loading = false;
+                }
+                if(query !== undefined){
+                    var search = new URLSearchParams(query);
+                    if(typeof search.get("q") == "string"){
+                        $sidebarQuery = search.get("q");
+                    }
                 }
             }
             catch{

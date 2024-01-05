@@ -9,8 +9,10 @@
 
 <script>
     import { sidebarQuery } from "../store/state";
+    import { navigate } from "astro:transitions/client";
     function clearQuery(){
         $sidebarQuery = "";
+        navigate("?q=");
     }
 </script>
 
