@@ -36,10 +36,11 @@ export async function fetchPlaylist(playlistId){
                 const title = videos[i].title;
                 output.push({'name': title, 'watchId': videoId});
             }
-            return output;
+            playlistData["videos"] = output;
+            return playlistData;
         }
     );
-return response;
+    return response;
 }
 
 export function addRecentPlaylist(playlistData){

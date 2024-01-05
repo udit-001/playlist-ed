@@ -20,9 +20,9 @@
     onMount(() => {
         const querySet = () => {
                 if ($sidebarQuery === "") {
-                return $lessons;
+                return $lessons['videos'];
                 } else {
-                    return $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()));
+                    return $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()));
                 }
             };
 

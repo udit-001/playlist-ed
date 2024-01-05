@@ -34,11 +34,11 @@
                 if($invidiousInstances.length == 0){
                     await fetchInvidiousInstances();
                 }
-                if($lessons.length == 0){
+                if($lessons.length == 0 && $lessons['playlistId'] !== playlistId){
                     $lessons = await fetchPlaylist(playlistId);
-                    currentIndex = $lessons.findIndex(item => item['watchId'] == videoId);
-                    $nextVideo = $lessons[currentIndex + 1]['watchId'];
-                    $prevVideo = $lessons[currentIndex - 1]['watchId'];
+                    currentIndex = $lessons['videos'].findIndex(item => item['watchId'] == videoId);
+                    $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
+                    $prevVideo = $lessons['videos'][currentIndex - 1]['watchId'];
                     loading = false;
                 }
                 if(query !== undefined){

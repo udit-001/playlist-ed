@@ -36,12 +36,11 @@
   </nav>
 
 <script>
-  import { onMount } from 'svelte';
   import { lessons, sidebarQuery } from '../store/state.js';
   import SidebarItem from './SidebarItem.svelte';
   import SidebarSearch from './SidebarSearch.svelte';
   export let loading;
   export let videoId;
   let queryset = '';
-  $: queryset = $sidebarQuery !== '' ? $lessons.filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0) : $lessons;
+  $: queryset = $sidebarQuery !== '' ? $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0) : $lessons['videos'];
 </script>

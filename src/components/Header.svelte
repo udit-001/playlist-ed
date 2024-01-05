@@ -26,7 +26,7 @@
         if(videoId !== undefined){
             if(Array.isArray($lessons) && $lessons.length !== 0){
                 currentIndex = $activeChildIndex;
-                title = $lessons.filter(item => item['watchId'] == videoId)[0]['name'];
+                title = $lessons['videos'].filter(item => item['watchId'] == videoId)[0]['name'];
             }
         }
     }

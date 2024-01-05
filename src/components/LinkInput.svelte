@@ -41,7 +41,7 @@
             var data = await fetchPlaylist(playlistId);
             $lessons = data;
 
-            var videoId = data[0]['watchId'];
+            var videoId = data['videos'][0]['watchId'];
             prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
             navigate("lessons/" + playlistId + "/" +  videoId);
             loadingButton = false;
