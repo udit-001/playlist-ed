@@ -9,9 +9,9 @@
           <h5 class="mx-auto align-middle mb-0 fw-normal">
             Contents
           </h5>
-          <button type="button" class="btn btn-secondary ms-auto">
+          <!-- <button type="button" class="btn btn-secondary ms-auto">
             <i class="bi bi-bookmark-plus-fill"></i>
-          </button>
+          </button> -->
         <!-- </a> -->
           <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#sidebar-example"></button>
     </div>
