@@ -13,8 +13,6 @@ export const lessons = persistentAtom('lessons', {}, {
     decode: JSON.parse
 });
 
-export const pageTitle = atom('');
-
 export const sidebarQuery = atom('');
 export const normalizedSearchQuery = computed(sidebarQuery, data => data.toLowerCase());
 
