@@ -1,12 +1,12 @@
 ---
-import HalfmoonLayout from '../layouts/HalfmoonLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.svelte';
 import ExampleLinks from '../components/ExampleLinks.svelte';
 import LinkInput from '../components/LinkInput.svelte';
 import Playlists from '../components/Playlists.svelte';
 ---
 
-<HalfmoonLayout>
+<BaseLayout>
     <Header client:load/>
     <div class="container-fluid">
         <div class="text-center m-3 mt-5 fs-5">
@@ -19,7 +19,7 @@ import Playlists from '../components/Playlists.svelte';
           </div>
           <Playlists client:load/>
     </div>
-</HalfmoonLayout>
+</BaseLayout>
 
 <style scoped>
     :root{
