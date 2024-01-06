@@ -33,7 +33,6 @@ export async function fetchPlaylist(playlistId){
             for (let i = 0; i < videos.length; i++) {
                 if(i === 0){
                     playlistData['recentVideo'] = videos[i].videoId;
-                    console.log(playlistData);
                 }
                 const videoId = videos[i].videoId;
                 const title = videos[i].title;
