@@ -38,8 +38,12 @@
                 if(Object.keys($lessons).length === 0 || $lessons['playlistId'] !== playlistId){
                     $lessons = await fetchPlaylist(playlistId);
                     currentIndex = $lessons['videos'].findIndex(item => item['watchId'] == videoId);
-                    $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
-                    $prevVideo = $lessons['videos'][currentIndex - 1]['watchId'];
+                    if(currentIndex > 0){
+                        $prevVideo = $lessons['videos'][currentIndex - 1]['watchId'];
+                    }
+                    if(currentIndex < $lessons['videos'].length - 1){
+                        $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
+                    }
                     loading = false;
                 }
                 else{
