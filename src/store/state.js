@@ -15,8 +15,6 @@ export const lessons = persistentAtom('lessons', {}, {
 
 export const pageTitle = atom('');
 
-export const activeChildIndex = atom(0);
-
 export const sidebarQuery = atom('');
 export const normalizedSearchQuery = computed(sidebarQuery, data => data.toLowerCase());
 
