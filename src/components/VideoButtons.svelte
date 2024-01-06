@@ -11,7 +11,6 @@
 </div>
 
 <script>
-    import { onMount } from 'svelte';
     import { lessons, sidebarQuery, prevVideo, nextVideo } from '../store/state.js';
     export let loading;
     export let videoId;
