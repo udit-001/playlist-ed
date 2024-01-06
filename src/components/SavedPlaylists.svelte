@@ -2,7 +2,7 @@
     {#if $savedPlaylists.length > 0}
         <ul class="list-group list-group-flush">
             {#each $savedPlaylists as p (p.playlistId)}
-                <SavedPlaylistItem title={p.title} author={p.author} authorImg={p.authorImg} playlistId={p.playlistId}/>
+                <SavedPlaylistItem title={p.title} author={p.author} authorImg={p.authorImg} playlistId={p.playlistId} videoId={p.recentVideo}/>
             {/each}
         </ul>
     {:else }

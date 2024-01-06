@@ -1,12 +1,14 @@
 <script>
     import { useInvidious } from "../store/userPreferences.js"
     import { invidiousInstances, fetchInvidiousInstances } from "../store/invidious.js"
-    import { playlistLink, exampleClicked } from "../store/state.js";
+    import { fetchPlaylist } from "../store/playlist.js";
+    import { playlistLink, exampleClicked, lessons } from "../store/state.js";
     import { navigate } from 'astro:transitions/client';
     import { prefetch } from 'astro:prefetch';
     let url = "";
     let isValid = true;
     let disabled = true;
+    let loadingButton = false;
 
     function isValidYoutubePlaylistURL(url) {
         if (url) {
@@ -31,11 +33,19 @@
         }
     }
 
-    function handleSubmit(){
+    async function handleSubmit(){
         if(isValid){
             var playlistId = extractPlaylistId(url);
-            prefetch("lessons/" + playlistId, { with: 'fetch' });
-            navigate("lessons/" + playlistId);
+            disabled = true;
+            loadingButton = true;
+            var data = await fetchPlaylist(playlistId);
+            $lessons = data;
+
+            var videoId = data['videos'][0]['watchId'];
+            prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
+            navigate("lessons/" + playlistId + "/" +  videoId);
+            loadingButton = false;
+            disabled = false;
         }
         else{
             return false;
@@ -55,6 +65,7 @@
                 class:is-invalid={!isValid}
                 required
                 bind:value={$playlistLink}
+                disabled={loadingButton}
             />
             <label for="example-input-7">YouTube Playlist URL</label>
         </div>
@@ -73,9 +84,13 @@
         </label>
     </div>
     <div class="col-12 text-center">
-        <button class="btn btn-primary btn-lg ps-4 pe-4 py-1" class:disabled={disabled} class:move={$exampleClicked} type="submit"
-            >Go</button
-        >
+        <button class="btn btn-primary btn-lg ps-4 pe-4 py-1" class:disabled={disabled} class:move={$exampleClicked} type="submit">
+            {#if loadingButton }
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
+            {:else }
+                Go
+            {/if}
+        </button>
     </div>
 </form>
 

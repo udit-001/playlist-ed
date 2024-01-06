@@ -1,23 +1,48 @@
 <div class="row mt-3">
     <div class="clearfix">
-        <button type="button" class="btn btn-primary btn-lg w-sm-25 float-start" on:click={goPrev} class:d-none={$activeChildIndex === 0}>
+        <a href="./{$prevVideo}" type="button" class="btn btn-primary btn-lg w-sm-25 float-start" class:d-none={$prevVideo === ""}>
             <i class="fa-solid fa-chevron-left"></i> Previous
-        </button>
-        <button type="button" class="ms-auto btn btn-primary btn-lg w-25 float-end" on:click={goNext} class:d-none={($activeChildIndex === ($lessons.length - 1)) || loading}>
+        </a>
+        <a href="./{$nextVideo}" type="button" class="ms-auto btn btn-primary btn-lg w-25 float-end" class:d-none={$nextVideo === ""}>
             Next <i class="fa-solid fa-chevron-right"></i>
-        </button>
+        </a>
         <span class="placeholder placeholder-lg placeholder-wave bg-primary w-25 float-end p-3" class:d-none={!loading}></span>
     </div>
 </div>
 
 <script>
-    import { lessons, activeChildIndex } from '../store/state.js';
+    import { lessons, sidebarQuery, prevVideo, nextVideo } from '../store/state.js';
     export let loading;
-    function goNext(){
-        $activeChildIndex += 1;
-    }
+    export let videoId;
+    var currentIndex;
+    var queryset;
 
-    function goPrev(){
-        $activeChildIndex -= 1;
+    $: {
+        if(Object.keys($lessons).length !== 0){
+            if ($sidebarQuery !== "") {
+                queryset = $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()));
+            } else {
+                queryset = $lessons['videos'];
+            }
+
+            currentIndex = queryset.findIndex(item => item['watchId'] == videoId);
+            $prevVideo = "";
+            $nextVideo = "";
+
+            if (currentIndex >= 0 && currentIndex <= queryset.length - 1) {
+                if (currentIndex !== 0) {
+                    $prevVideo = queryset[currentIndex - 1]['watchId'];
+                }
+                if (currentIndex !== queryset.length - 1) {
+                    $nextVideo = queryset[currentIndex + 1]['watchId'];
+                }
+            }
+            if($nextVideo !== "" && $sidebarQuery !== "" && currentIndex !== queryset.length - 1){
+                $nextVideo = $nextVideo + "?q=" + $sidebarQuery;
+            }
+            if($prevVideo !== "" && $sidebarQuery !== "" && currentIndex !== 0){
+                $prevVideo = $prevVideo + "?q=" + $sidebarQuery;
+            }
+        }
     }
 </script>
