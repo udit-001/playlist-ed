@@ -27,8 +27,8 @@
                   <span class="placeholder col-12 placeholder-lg mb-2 placeholder-wave" class:d-none={!loading}></span>
                 {/each}
               {:else}
-                {#each queryset as lesson, index}
-                  <SidebarItem title={lesson.name} {index} isActive={lesson.watchId === videoId} watchId={lesson.watchId} completed={queryset.includes(lesson.watchId)}/>
+                {#each filteredVideos as lesson, index}
+                  <SidebarItem title={lesson.name} {index} isActive={lesson.watchId === videoId} watchId={lesson.watchId} completed={$completedVideos.includes(lesson.watchId)}/>
                 {/each}
               {/if}
           </ul>
@@ -36,11 +36,23 @@
   </nav>
 
 <script>
-  import { lessons, sidebarQuery } from '../store/state.js';
+  import { lessons, sidebarQuery, sidebarFilter, completedVideos } from '../store/state.js';
   import SidebarItem from './SidebarItem.svelte';
   import SidebarSearch from './SidebarSearch.svelte';
   export let loading;
   export let videoId;
-  let queryset = [];
-  $: queryset = $sidebarQuery !== '' ? $lessons['videos'].filter(item => item.name.toLowerCase().includes($sidebarQuery.toLowerCase()) > 0) : $lessons['videos'];
+  var filteredVideos;
+  $: filteredVideos = $lessons['videos'].filter(item => {
+    const nameMatch = $sidebarQuery
+      ? item.name.toLowerCase().includes($sidebarQuery.toLowerCase())
+      : true;
+
+    const isCompleted = $sidebarFilter === 'completed'
+      ? $completedVideos.includes(item['watchId'])
+      : $sidebarFilter === 'incomplete'
+        ? !$completedVideos.includes(item['watchId'])
+        : true;
+
+    return nameMatch && isCompleted;
+  });
 </script>

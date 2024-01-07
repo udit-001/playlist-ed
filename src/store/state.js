@@ -16,6 +16,7 @@ export const lessons = persistentAtom('lessons', {}, {
 export const completedVideos = atom([]);
 
 export const sidebarQuery = atom('');
+export const sidebarFilter = atom('');
 export const normalizedSearchQuery = computed(sidebarQuery, data => data.toLowerCase());
 
 export const nextVideo = atom('');
