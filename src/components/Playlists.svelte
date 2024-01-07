@@ -40,7 +40,6 @@
 
 <script>
     import { blur } from 'svelte/transition';
-    import { recentPlaylists, savedPlaylists } from '../store/playlist.js'
     import SavedPlaylists from './SavedPlaylists.svelte';
     import RecentPlaylists from './RecentPlaylists.svelte';
 </script>

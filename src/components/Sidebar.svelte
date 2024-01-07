@@ -28,7 +28,7 @@
                 {/each}
               {:else}
                 {#each queryset as lesson, index}
-                  <SidebarItem title={lesson.name} {index} isActive={lesson.watchId === videoId} watchId={lesson.watchId}/>
+                  <SidebarItem title={lesson.name} {index} isActive={lesson.watchId === videoId} watchId={lesson.watchId} completed={queryset.includes(lesson.watchId)}/>
                 {/each}
               {/if}
           </ul>

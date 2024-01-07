@@ -4,7 +4,8 @@
         <a href="/lessons/{playlistId}/{videoId}" class="stretched-link link-underline link-success link-underline-opacity-25">{title}</a>
         <div class="text-body-secondary">@{author}</div>
     </div>
-    <button type="button" class="btn btn-secondary ms-auto" on:click={unsavePlaylist(playlistId)}>
+    <ProgressCard total={videoCount} watched={viewedCount}/>
+    <button type="button" class="btn btn-secondary" on:click={unsavePlaylist(playlistId)}>
         <i class="bi bi-bookmark-dash-fill"></i>
     </button>
 </li>
@@ -12,9 +13,12 @@
 <script>
     import { blur } from 'svelte/transition';
     import { unsavePlaylist } from "../store/playlist.js";
+    import ProgressCard from './ProgressCard.svelte';
     export let title;
     export let author;
     export let authorImg;
     export let playlistId;
     export let videoId;
+    export let videoCount;
+    export let viewedCount;
 </script>
