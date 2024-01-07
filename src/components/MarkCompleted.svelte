@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-success mx-auto" on:click={toggleCompleted(videoId)}>
+<button type="button" class="btn btn-success mx-auto" class:d-none={loading} on:click={toggleCompleted(videoId)}>
     {#if !completed}<i class="bi bi-check-lg me-1"></i>{:else}<i class="bi bi-x-lg me-1"></i>{/if} Mark as {#if !completed}Complete{:else}Incomplete{/if}
 </button>
 
@@ -6,6 +6,7 @@
     import { lessons, completedVideos } from "../store/state";
     import { markVideoCompleted, unmarkVideoCompleted } from "../store/playlist";
     export let videoId;
+    export let loading;
     var completed;
 
     $: {

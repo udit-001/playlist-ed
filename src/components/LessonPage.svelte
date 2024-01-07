@@ -7,7 +7,7 @@
         </div>
       </div>
     <VideoButtons {loading} {videoId}>
-        <MarkCompleted {videoId}/>
+        <MarkCompleted {loading} {videoId}/>
     </VideoButtons>
 <Sidebar {loading} {videoId}/>
 </div>
