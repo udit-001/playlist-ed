@@ -22,7 +22,7 @@
         }
         else{
             $completedVideos = $completedVideos.filter(item => item !== videoId);
-            $lessons['completed'] = $lessons['completed'].filter(item => item === videoId);
+            $lessons['completed'] = $lessons['completed'].filter(item => item !== videoId);
             unmarkVideoCompleted($lessons['playlistId'], videoId);
             completed = false;
         }
