@@ -1,12 +1,13 @@
 <div class="row mt-3">
-    <div class="clearfix">
-        <a href="./{$prevVideo}" type="button" class="btn btn-primary btn-lg w-sm-25 float-start" class:d-none={$prevVideo === ""}>
+    <div class="d-flex justify-content-between position-relative" class:flex-row-reverse={loading}>
+        <a href="./{$prevVideo}" type="button" class="btn btn-primary btn-lg" class:d-none={$prevVideo === ""}>
             <i class="fa-solid fa-chevron-left"></i> Previous
         </a>
-        <a href="./{$nextVideo}" type="button" class="ms-auto btn btn-primary btn-lg w-25 float-end" class:d-none={$nextVideo === ""}>
+        <slot />
+        <a href="./{$nextVideo}" type="button" class="btn btn-primary btn-lg" class:d-none={$nextVideo === ""}>
             Next <i class="fa-solid fa-chevron-right"></i>
         </a>
-        <span class="placeholder placeholder-lg placeholder-wave bg-primary w-25 float-end p-3" class:d-none={!loading}></span>
+        <span class="placeholder placeholder-lg placeholder-wave bg-primary p-3" class:specific-w-150={loading} class:d-none={!loading}></span>
     </div>
 </div>
 

@@ -78,6 +78,7 @@
             name="invidious"
             id="invidious"
             bind:checked={$useInvidious}
+            disabled={loadingButton}
         />
         <label class="form-check-label" for="invidious">
             Use Invidious Embeds

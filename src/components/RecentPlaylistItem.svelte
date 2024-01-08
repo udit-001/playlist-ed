@@ -4,7 +4,8 @@
         <a href="/lessons/{playlistId}/{videoId}" class="stretched-link link-underline link-success link-underline-success" class:link-opacity-100={isSaved} class:link-opacity-50={!isSaved}>{title}</a>
         <div class="text-body-secondary" class:text-opacity-100={isSaved} class:text-opacity-50={!isSaved}>@{author}</div>
     </div>
-    <button type="button" class="btn btn-secondary ms-auto" disabled={isSaved} on:click={savePlaylist(playlistId)}>
+    <ProgressCard total={videoCount} watched={viewedCount} />
+    <button type="button" class="btn btn-secondary" disabled={isSaved} on:click={savePlaylist(playlistId)}>
         {#if isSaved == true}
         <i class="bi bi-bookmark-check-fill"></i>
         {:else}
@@ -19,11 +20,14 @@
 <script>
     import { blur } from 'svelte/transition';
     import { removeRecentPlaylist, savePlaylist, savedPlaylists } from "../store/playlist.js";
+    import ProgressCard from './ProgressCard.svelte';
     export let title;
     export let author;
     export let authorImg;
     export let playlistId;
     export let videoId;
+    export let videoCount;
+    export let viewedCount;
     let isSaved;
     $: isSaved = $savedPlaylists.filter(item => item['playlistId'] === playlistId).length > 0;
 </script>

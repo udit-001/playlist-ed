@@ -13,7 +13,10 @@ export const lessons = persistentAtom('lessons', {}, {
     decode: JSON.parse
 });
 
+export const completedVideos = atom([]);
+
 export const sidebarQuery = atom('');
+export const sidebarFilter = atom('');
 export const normalizedSearchQuery = computed(sidebarQuery, data => data.toLowerCase());
 
 export const nextVideo = atom('');

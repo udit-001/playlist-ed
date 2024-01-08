@@ -6,7 +6,9 @@
             <VideoEmbed {loading} {videoId}/>
         </div>
       </div>
-    <VideoButtons {loading} {videoId}/>
+    <VideoButtons {loading} {videoId}>
+        <MarkCompleted {loading} {videoId}/>
+    </VideoButtons>
 <Sidebar {loading} {videoId}/>
 </div>
 {/if}
@@ -15,7 +17,8 @@
     import { onMount } from 'svelte';
     import { invidiousInstances, fetchInvidiousInstances } from '../store/invidious.js';
     import { fetchPlaylist, addRecentVideo } from '../store/playlist.js';
-    import { lessons, nextVideo, prevVideo, sidebarQuery } from '../store/state.js';
+    import { lessons, nextVideo, prevVideo, sidebarQuery, completedVideos } from '../store/state.js';
+    import MarkCompleted from './MarkCompleted.svelte'
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
     import VideoButtons from './VideoButtons.svelte';
@@ -45,6 +48,7 @@
                         $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
                     }
                     loading = false;
+                    $completedVideos = [];
                 }
                 else{
                     currentIndex = $lessons['videos'].findIndex(item => item['watchId'] == videoId);
@@ -55,6 +59,7 @@
                         $nextVideo = $lessons['videos'][currentIndex + 1]['watchId'];
                     }
                     loading = false;
+                    $completedVideos = $lessons['completed'];
                 }
                 if(query !== undefined){
                     var search = new URLSearchParams(query);
