@@ -42,17 +42,19 @@
   export let loading;
   export let videoId;
   var filteredVideos;
-  $: filteredVideos = $lessons['videos'].filter(item => {
-    const nameMatch = $sidebarQuery
-      ? item.name.toLowerCase().includes($sidebarQuery.toLowerCase())
-      : true;
-
-    const isCompleted = $sidebarFilter === 'completed'
-      ? $completedVideos.includes(item['watchId'])
-      : $sidebarFilter === 'incomplete'
-        ? !$completedVideos.includes(item['watchId'])
+  $: if(Object.keys($lessons).length > 0){
+      filteredVideos = $lessons['videos'].filter(item => {
+      const nameMatch = $sidebarQuery
+        ? item.name.toLowerCase().includes($sidebarQuery.toLowerCase())
         : true;
 
-    return nameMatch && isCompleted;
-  });
+      const isCompleted = $sidebarFilter === 'completed'
+        ? $completedVideos.includes(item['watchId'])
+        : $sidebarFilter === 'incomplete'
+          ? !$completedVideos.includes(item['watchId'])
+          : true;
+
+      return nameMatch && isCompleted;
+    })
+  }
 </script>
