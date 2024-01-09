@@ -7,7 +7,8 @@ export default defineConfig({
   output: 'server',
   integrations: [svelte()],
   adapter: netlify({
-    edgeMiddleware: true
+    edgeMiddleware: true,
+    cacheOnDemandPages: true,
   }),
   prefetch: true
 });
