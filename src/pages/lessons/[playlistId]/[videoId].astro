@@ -6,6 +6,6 @@ const { playlistId, videoId } = Astro.params;
 const query = Astro.url.search;
 ---
 
-<BaseLayout>
+<BaseLayout metaPlaceholder="true">
   <LessonPage client:only="svelte" {playlistId} {videoId} {query}/>
 </BaseLayout>
