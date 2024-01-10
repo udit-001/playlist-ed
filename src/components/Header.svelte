@@ -11,7 +11,9 @@
         {#if logo}
             <HeaderLogo />
         {/if}
-        {title}
+        <span class="align-middle">
+            {title}
+        </span>
     </span>
     <span class="placeholder col-5 mx-auto m-2 placeholder-lg placeholder-wave" class:d-none={!loading}></span>
     </div>
