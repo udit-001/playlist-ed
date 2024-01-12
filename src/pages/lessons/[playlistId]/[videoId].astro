@@ -1,6 +1,7 @@
 ---
 import LessonPage from '../../../components/LessonPage.svelte';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Toast from '../../../components/Toast.svelte';
 
 const { playlistId, videoId } = Astro.params;
 const query = Astro.url.search;
@@ -8,4 +9,5 @@ const query = Astro.url.search;
 
 <BaseLayout metaPlaceholder="true">
   <LessonPage client:only="svelte" {playlistId} {videoId} {query}/>
+  <Toast client:load />
 </BaseLayout>
