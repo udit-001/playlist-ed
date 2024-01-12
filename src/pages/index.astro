@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.svelte';
-import ExampleLinks from '../components/ExampleLinks.svelte';
 import LinkInput from '../components/LinkInput.svelte';
 import Playlists from '../components/Playlists.svelte';
+import Toast from '../components/Toast.svelte';
 ---
 
 <BaseLayout>
-    <Header client:load/>
+    <Header client:load logo={true}/>
     <div class="container-fluid">
         <div class="text-center m-3 mt-5 fs-5">
             <p>Dive into your favorite playlists without interruptions or distractions from YouTube's cluttered interface. </p>
@@ -19,6 +19,7 @@ import Playlists from '../components/Playlists.svelte';
           </div>
           <Playlists client:load/>
     </div>
+    <Toast client:load/>
 </BaseLayout>
 
 <style scoped>

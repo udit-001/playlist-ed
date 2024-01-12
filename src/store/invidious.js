@@ -46,7 +46,9 @@ export async function fetchInvidiousInstances(){
           }
           return filteredUrls;
       }
-  )
-  invidiousInstances.set(response);
-  activeInvidiousIndex.set(Math.floor(Math.random() * invidiousInstances.get().length));
+  ).catch(() => {return null});
+  if(response !== null){
+      invidiousInstances.set(response);
+      activeInvidiousIndex.set(Math.floor(Math.random() * invidiousInstances.get().length));
+  }
 }

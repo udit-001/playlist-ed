@@ -2,9 +2,10 @@
     import { useInvidious } from "../store/userPreferences.js"
     import { invidiousInstances, fetchInvidiousInstances } from "../store/invidious.js"
     import { fetchPlaylist } from "../store/playlist.js";
-    import { playlistLink, exampleClicked, lessons } from "../store/state.js";
+    import { playlistLink, exampleClicked, lessons, toastMessage } from "../store/state.js";
     import { navigate } from 'astro:transitions/client';
     import { prefetch } from 'astro:prefetch';
+
     let url = "";
     let isValid = true;
     let disabled = true;
@@ -39,13 +40,20 @@
             disabled = true;
             loadingButton = true;
             var data = await fetchPlaylist(playlistId);
-            $lessons = data;
+            if(data !== null){
+                $lessons = data;
 
-            var videoId = data['videos'][0]['watchId'];
-            prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
-            navigate("lessons/" + playlistId + "/" +  videoId);
-            loadingButton = false;
-            disabled = false;
+                var videoId = data['videos'][0]['watchId'];
+                prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
+                navigate("lessons/" + playlistId + "/" +  videoId);
+                loadingButton = false;
+                disabled = false;
+            }
+            else{
+                $toastMessage = "An error ocurred while fetching data :(";
+                loadingButton = false;
+                disabled = false;
+            }
         }
         else{
             return false;

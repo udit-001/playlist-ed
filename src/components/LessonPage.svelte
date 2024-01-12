@@ -17,7 +17,7 @@
     import { onMount } from 'svelte';
     import { invidiousInstances, fetchInvidiousInstances } from '../store/invidious.js';
     import { fetchPlaylist, addRecentVideo } from '../store/playlist.js';
-    import { lessons, nextVideo, prevVideo, sidebarQuery, completedVideos } from '../store/state.js';
+    import { lessons, nextVideo, prevVideo, sidebarQuery, completedVideos, toastMessage } from '../store/state.js';
     import MarkCompleted from './MarkCompleted.svelte'
     import VideoEmbed from './VideoEmbed.svelte';
     import Sidebar from './Sidebar.svelte';
@@ -70,7 +70,8 @@
                 addRecentVideo(playlistId, videoId);
             }
             catch{
-                navigate("/");
+                $toastMessage = "An error occurred while fetching data, redirecting you back :(";
+                setTimeout(function() { navigate("/") }, 5000);
             }
         }
     });

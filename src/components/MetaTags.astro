@@ -1,0 +1,33 @@
+---
+var pageTitle = "Playlist-Ed"
+var metaTitle = "Playlist-Ed: Your solution to chaotic study sessions";
+var metaDescription = "Streamline your study sessions by curating clutter-free, uninterrupted playlists for your focused learning."
+var metaImage = "/images/playlist-ed-banner.png"
+
+const { metaPlaceholder } = Astro.props;
+
+if(metaPlaceholder){
+    pageTitle = "META TITLE";
+    metaTitle = "META TITLE";
+    metaDescription = "META DESCRIPTION";
+    metaImage = "META IMAGE";
+}
+---
+
+<title>{pageTitle}</title>
+<meta name="title" content={metaTitle} />
+<meta name="description" content={metaDescription} />
+
+
+<!-- Open Graph Tags -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://playlistzen.netlify.app" />
+<meta property="og:title" content={metaTitle} />
+<meta property="og:description" content={metaDescription} />
+
+<!-- Twitter Social Tags -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://playlistzen.netlify.app" />
+<meta property="twitter:title" content={metaTitle} />
+<meta property="twitter:description" content={metaDescription} />
+<meta property="twitter:image" content={metaImage} />
