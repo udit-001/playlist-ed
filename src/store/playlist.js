@@ -12,40 +12,45 @@ export const savedPlaylists = persistentAtom('savedPlaylists', [], {
 });
 
 export async function fetchPlaylist(playlistId){
-    var baseUrl = apiInvidiousInstances.get()[Math.floor(Math.random() * apiInvidiousInstances.get().length)]["uri"];
-    const url = baseUrl + "/api/v1/playlists/" + playlistId;
-    const response = await fetch(url).then(response => {
-    if(!response.ok){
-        throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json()
-    }).then(
-        data=>{
-            var playlistData = {
-                title : data["title"],
-                playlistId : data["playlistId"],
-                author: data["author"],
-                authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"],
-                playlistThumbnail: data["playlistThumbnail"],
-                videoCount: data['videoCount'],
-                completed: []
-            }
-            const videos = data['videos'];
-            var output = [];
-            for (let i = 0; i < videos.length; i++) {
-                if(i === 0){
-                    playlistData['recentVideo'] = videos[i].videoId;
-                }
-                const videoId = videos[i].videoId;
-                const title = videos[i].title;
-                output.push({'name': title, 'watchId': videoId});
-            }
-            addRecentPlaylist(playlistData);
-            playlistData["videos"] = output;
-            return playlistData;
+    if(apiInvidiousInstances.get().length > 0){
+        var baseUrl = apiInvidiousInstances.get()[Math.floor(Math.random() * apiInvidiousInstances.get().length)]["uri"];
+        const url = baseUrl + "/api/v1/playlists/" + playlistId;
+        const response = await fetch(url).then(response => {
+        if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-    );
-    return response;
+        return response.json()
+        }).then(
+            data=>{
+                var playlistData = {
+                    title : data["title"],
+                    playlistId : data["playlistId"],
+                    author: data["author"],
+                    authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"],
+                    playlistThumbnail: data["playlistThumbnail"],
+                    videoCount: data['videoCount'],
+                    completed: []
+                }
+                const videos = data['videos'];
+                var output = [];
+                for (let i = 0; i < videos.length; i++) {
+                    if(i === 0){
+                        playlistData['recentVideo'] = videos[i].videoId;
+                    }
+                    const videoId = videos[i].videoId;
+                    const title = videos[i].title;
+                    output.push({'name': title, 'watchId': videoId});
+                }
+                addRecentPlaylist(playlistData);
+                playlistData["videos"] = output;
+                return playlistData;
+            }
+        );
+        return response;
+    }
+    else{
+        return null;
+    }
 }
 
 export function addRecentPlaylist(playlistData){
