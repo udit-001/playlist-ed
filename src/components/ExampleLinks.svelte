@@ -15,8 +15,8 @@
             'url': 'https://www.youtube.com/playlist?list=PLhQjrBD2T380F_inVRXMIHCqLaNUd7bN4'
         },
         {
-            'name': 'Class 10 Maths Lessons',
-            'url': 'https://www.youtube.com/playlist?list=PLph3YM7PV2E5Jc9-marHDoY5ymnDkHCuy'
+            'name': 'CMU Intro to Databases',
+            'url': 'https://www.youtube.com/playlist?list=PLSE8ODhjZXjbj8BMuIrRcacnQh20hmY9g'
         }
     ]
 
