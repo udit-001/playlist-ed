@@ -18,5 +18,10 @@ export default defineConfig({
     edgeMiddleware: true,
     cacheOnDemandPages: true,
   }),
-  prefetch: true
+  prefetch: true,
+  vite: {
+    ssr: {
+      external: ['@sentry/core', '@sentry/node', '@sentry/utils', '@sentry/browser', ],
+    }
+  }
 });
