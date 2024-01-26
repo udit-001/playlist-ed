@@ -33,6 +33,7 @@
     var currentIndex;
 
 	onMount(async () => {
+        fetchMaths();
         if(playlistId !== undefined){
             try{
                 if($invidiousInstances.length == 0){
