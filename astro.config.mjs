@@ -10,5 +10,5 @@ export default defineConfig({
     edgeMiddleware: true,
     cacheOnDemandPages: true,
   }),
-  prefetch: true
+  prefetch: true,
 });

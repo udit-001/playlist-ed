@@ -16,6 +16,17 @@ const { metaPlaceholder } = Astro.props;
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@2.0.1/css/halfmoon.min.css" rel="stylesheet" integrity="sha256-SsJizWSIG9JT9Qxbiy8xnYJfjCAkhEQ0hihxRn7jt2M=" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@2.0.1/css/cores/halfmoon.cores.css" rel="stylesheet" integrity="sha256-MAzAVJMU/ze52ZHcA8CeqRrCOVndMZlHwNeS2c73vP4=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        import * as Sentry from '@sentry/browser';
+
+        Sentry.init({
+          dsn: 'https://b34bb0e9f941c821a0c9b98636517040@o444924.ingest.sentry.io/4506640318857216',
+          tracesSampleRate: 1.0,
+          replaysSessionSampleRate: 0.1,
+          replaysOnErrorSampleRate: 1.0,
+          integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+        });
+    </script>
 </head>
 <body class="ps-md-sbwidth">
     <slot />
