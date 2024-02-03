@@ -31,7 +31,10 @@
     $: {
         if(videoId !== undefined){
             if(Object.keys($lessons).length > 0){
-                title = $lessons['videos'].filter(item => item['watchId'] == videoId)[0]['name'];
+                let filteredVideos = $lessons['videos'].filter(item => item['watchId'] == videoId);
+                if (filteredVideos.length > 0){
+                    title = filteredVideos[0]['name'];
+                }
             }
         }
     }
