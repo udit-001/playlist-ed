@@ -37,6 +37,9 @@
             try{
                 if($invidiousInstances.length == 0){
                     await fetchInvidiousInstances();
+                    if($invidiousInstances.length === 0){
+                        throw "Error"
+                    }
                 }
                 if(Object.keys($lessons).length === 0 || $lessons['playlistId'] !== playlistId){
                     $lessons = await fetchPlaylist(playlistId);
