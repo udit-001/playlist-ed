@@ -47,7 +47,7 @@ export async function fetchInvidiousInstances(){
 
 export async function fetchVideoDetails(videoId){
     let instances = await fetchInvidiousInstances();
-    if(instances !== null){
+    if(instances.length !== 0){
         let apiInstances = instances.filter(i => i['api'] === true);
         var baseUrl = apiInstances[0]['uri'];
         const url = baseUrl + "/api/v1/videos/" + videoId;
