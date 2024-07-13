@@ -6,7 +6,7 @@ export async function fetchInvidiousInstances(){
         data => {
             let filteredUrls = [];
             for(let i = 0; i < data.length; i++){
-                var currentItem = data[i][1];
+                var currentItem = data[i];
                 if(currentItem['type'] === 'https'){
                     if(currentItem["uri"] === "https://invidious.perennialte.ch"){
                       continue;
