@@ -5,6 +5,7 @@
     import { playlistLink, exampleClicked, lessons, toastMessage } from "../store/state.js";
     import { navigate } from 'astro:transitions/client';
     import { prefetch } from 'astro:prefetch';
+    import { onMount } from "svelte";
 
     let url = "";
     let isValid = true;
@@ -25,13 +26,14 @@
         return urlParams.get('list');
     }
 
+    onMount(async() => {
+        fetchInvidiousInstances();
+    });
+
     $: {
         url = $playlistLink;
         isValid = isValidYoutubePlaylistURL(url);
         disabled = url === ''? true: !isValid;
-        if($invidiousInstances.length == 0){
-            fetchInvidiousInstances();
-        }
     }
 
     async function handleSubmit(){
