@@ -36,6 +36,13 @@ export async function fetchInvidiousInstances(){
                               }
                           }
                       }
+                      else{
+                        filteredUrls.push({
+                            "uri": currentItem["uri"],
+                            "cors": currentItem["cors"],
+                            "api": currentItem["api"]
+                        });
+                      }
                   }
               }
           }
