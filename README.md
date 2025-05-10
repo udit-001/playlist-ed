@@ -17,6 +17,16 @@ Playlist-Ed is a web application designed to enhance your YouTube playlist viewi
 - **Recently Viewed Playlists:** Keep track of the playlists you've recently watched.
 - **Searchable Sidebar:** Easily navigate through lengthy playlists with a searchable sidebar.
 
+## Screenshots
+
+> **Note:** Our playlist embedding service is temporarily unavailable. Here's a preview of Playlist-Ed's clean, distraction-free interface.
+
+<div align="center">
+<h4>Clean Interface Preview</h4>
+<img src="/docs/screenshots/lesson-screen.png" alt="Playlist-Ed interface">  
+<small>Minimalist design for focused learning</small>
+</div>
+
 ## Technologies Used
 
 - **Astro:** A modern front-end framework for building faster, more efficient websites.
