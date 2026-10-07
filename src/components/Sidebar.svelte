@@ -1,13 +1,13 @@
 <nav class="sidebar offcanvas-start offcanvas-md" tabindex="-1" id="sidebar-example">
     <div class="offcanvas-header">
         <!-- <a class="sidebar-brand" href="#"> -->
-          <a href="/" class="btn float-start">
+          <a href="/" class="btn float-start" aria-label="Back to your playlists">
             <i class="bi bi-chevron-double-left"></i>
           </a>
           <!-- <button class="btn" data-bs-toggle="offcanvas" aria-label="Close" data-bs-target="#sidebar-example"></button> -->
           <!-- <img src="..." alt="Logo" width="24" height="24" class="d-inline-block align-text-top"> -->
           <h5 class="mx-auto align-middle mb-0 fw-normal">
-            Contents
+            Videos
           </h5>
           <!-- <button type="button" class="btn btn-secondary ms-auto">
             <i class="bi bi-bookmark-plus-fill"></i>

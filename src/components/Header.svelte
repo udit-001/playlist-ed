@@ -4,7 +4,7 @@
 
 <nav class="navbar sticky-top" class:py-0={logo === true} style="background-color: var(--bs-content-bg); border-bottom: var(--bs-border-width) solid var(--bs-content-border-color);">
     <div class="container-fluid">
-    <button class:d-none={videoId === undefined} class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" aria-label="Close" data-bs-target="#sidebar-example">
+    <button class:d-none={videoId === undefined} class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" aria-label="Show playlist contents" data-bs-target="#sidebar-example">
         <span class="navbar-toggler-icon"></span>
     </button>
     <span class="navbar-brand mx-auto w-75 text-center text-truncate" href="#" class:d-none={loading}>
@@ -26,7 +26,7 @@
     export var videoId;
     export var logo = false;
 
-    let title = loading === true ? 'Loading...': 'Playlist-Ed';
+    let title = loading === true ? 'Loading playlist…': 'Playlist-Ed';
 
     $: {
         if(videoId !== undefined){

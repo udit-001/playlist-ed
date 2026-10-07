@@ -64,7 +64,7 @@
                 addRecentVideo(playlistId, videoId);
             }
             catch{
-                $toastMessage = "An error occurred while fetching data, redirecting you back :(";
+                $toastMessage = "We couldn't load that playlist. Taking you back to your playlists.";
                 setTimeout(function() { navigate("/") }, 5000);
             }
         }

@@ -5,7 +5,7 @@
                 <ul class="nav nav-pills nav-justified mx-3 px-3 mx-md-4 px-md-4 mx-lg-5 px-lg-5 px-sm-4 mx-sm-4 card-header-pills" id="js-tabs-1" role="tablist">
                     <li class="nav-item d-flex align-items-center" role="presentation">
                       <button class="nav-link active" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
-                        <i class="bi bi-clock-history me-2"></i> Recent</button>
+                        <i class="bi bi-clock-history me-2"></i> Recently viewed</button>
                     </li>
                     <li class="nav-item" role="presentation">
                       <button class="nav-link" id="saved-tab" data-bs-toggle="tab" data-bs-target="#saved-tab-pane" type="button" role="tab" aria-controls="account-tab-pane" aria-selected="false">

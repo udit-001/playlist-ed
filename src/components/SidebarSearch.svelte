@@ -1,6 +1,6 @@
 <div class="filter-docs sticky-top p-3">
     <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search" aria-label="Search" bind:value={$sidebarQuery} aria-labelledby="search-help-block">
+    <input type="text" class="form-control" placeholder="Search videos" aria-label="Search videos" bind:value={$sidebarQuery} aria-describedby="search-help-block">
     <button type="button" class="btn btn-secondary" aria-label="Clear search" on:click={clearQuery} aria-expanded="false" class:d-none={$sidebarQuery === ""} class:rounded={$sidebarQuery === ""}>
         <i class="bi bi-x"></i>
     </button>
@@ -19,10 +19,10 @@
 
     $: {
         if($sidebarFilter === "completed"){
-            filteredText = "Filtered by Completed Videos";
+            filteredText = "Showing completed videos";
         }
         else if($sidebarFilter === "incomplete"){
-            filteredText = "Filtered by Incomplete Videos";
+            filteredText = "Showing incomplete videos";
         }
         else{
             filteredText = "";

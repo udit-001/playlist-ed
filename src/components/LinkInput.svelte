@@ -83,7 +83,7 @@
     <div class="col-12 text-center">
         <button class="btn btn-primary btn-lg ps-4 pe-4 py-1" class:disabled={disabled} class:move={$exampleClicked} type="submit">
             {#if loadingButton }
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading playlist…
             {:else }
                 Go
             {/if}

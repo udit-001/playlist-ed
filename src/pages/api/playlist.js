@@ -70,7 +70,7 @@ export async function GET({ url }) {
     }
     catch (error) {
         clientPromise = undefined;
-        return json({ error: 'Could not initialise the YouTube client.', detail: String(error?.message ?? error) }, 502);
+        return json({ error: 'Playlist lookup is unavailable right now. Try again in a moment.', detail: String(error?.message ?? error) }, 502);
     }
 
     let first;
