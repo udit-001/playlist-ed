@@ -3,35 +3,35 @@
 
 <h1> Playlist-Ed </h1>
 
-<h3> Your Solution to Chaotic Study Sessions</h3>
+<h3> A distraction-free player for YouTube playlists</h3>
 
 </div>
 
-Playlist-Ed is a web application designed to enhance your YouTube playlist viewing experience by providing a distraction-free environment. Whether you're studying, learning, or just enjoying curated content, Playlist-Ed helps you stay focused and organized. With features like a distraction-free video player, playlist saving, progress tracking, and a searchable sidebar, managing your YouTube playlists has never been easier.
+Paste a playlist URL and watch it in a bare player: no recommendation rail, no comments, no autoplay into something else. Mark videos done as you go, and come back to the same spot later.
 
-## Features
+No signup and no account. Your playlists, progress, and preferences live in your browser's local storage.
 
-- **Distraction-Free Viewing:** Enjoy your YouTube playlists without the distractions of the YouTube interface.
-- **Playlist Saving:** Save your favorite playlists for easy access and future reference.
-- **Progress Tracking:** Mark your progress for videos you've completed within a playlist.
-- **Recently Viewed Playlists:** Keep track of the playlists you've recently watched.
-- **Searchable Sidebar:** Easily navigate through lengthy playlists with a searchable sidebar.
+**[Try it](https://playlist-ed.netlify.app)**
 
-## Screenshots
+<div align="center">
+<img src="/docs/screenshots/lesson-screen.png" alt="Playlist-Ed lesson screen" width="720">
+</div>
 
 > **Note:** Our playlist embedding service is temporarily unavailable. Here's a preview of Playlist-Ed's clean, distraction-free interface.
 
-<div align="center">
-<h4>Clean Interface Preview</h4>
-<img src="/docs/screenshots/lesson-screen.png" alt="Playlist-Ed interface">  
-<small>Minimalist design for focused learning</small>
-</div>
+## Features
 
-## Technologies Used
+- **Watch distraction-free:** a bare video player with none of the YouTube interface around it.
+- **Save playlists:** keep the ones you come back to.
+- **Track progress:** mark videos complete and resume a series mid-way.
+- **Reopen recents:** the last few playlists you watched, one click away.
+- **Search the sidebar:** filter a 40-video course down to the lecture you want.
 
-- **Astro:** A modern front-end framework for building faster, more efficient websites.
-- **Svelte:** A reactive JavaScript framework for building user interfaces.
-- **JavaScript:** The programming language that powers the dynamic features of Playlist-Ed.
+## Run locally
 
-## Demo
-Visit the [website](https://playlist-ed.netlify.app) to experience distraction-free YouTube playlist viewing in action!
+```bash
+npm install
+npm run dev
+```
+
+Node 18+. Built with Astro and Svelte.
