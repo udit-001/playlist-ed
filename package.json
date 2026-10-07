@@ -10,12 +10,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^5.2.0",
+    "@astrojs/cloudflare": "^10.4.2",
     "@astrojs/svelte": "^5.4.0",
     "@nanostores/persistent": "^0.9.1",
     "@sentry/browser": "^7.98.0",
     "astro": "^4.7.0",
     "nanostores": "^0.9.5",
     "svelte": "^4.2.8"
+  },
+  "devDependencies": {
+    "wrangler": "^4.148.0"
   }
 }
