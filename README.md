@@ -11,7 +11,7 @@ Paste a playlist URL and watch it in a bare player: no recommendation rail, no c
 
 No signup and no account. Your playlists, progress, and preferences live in your browser's local storage.
 
-**[Try it](https://playlist-ed.netlify.app)**
+**[Try it](https://playlist-ed.aurax.workers.dev)**
 
 <div align="center">
 <img src="/docs/screenshots/lesson-screen.png" alt="Playlist-Ed lesson screen" width="720">
