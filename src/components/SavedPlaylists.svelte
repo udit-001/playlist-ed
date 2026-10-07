@@ -8,8 +8,7 @@
     {:else }
         <div class="col-12 p-4 text-center">
             <p class="mx-auto text-body-secondary">
-                Haven't saved any yet? It's where your favorites stay, even after 'Recently Viewed' changes. <br/>
-                Let's start saving together! 🤗
+                Nothing saved yet. Bookmark a playlist from Recent to keep it here.
             </p>
         </div>
     {/if}

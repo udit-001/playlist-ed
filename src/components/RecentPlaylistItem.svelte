@@ -5,14 +5,14 @@
         <div class="text-body-secondary" class:text-opacity-100={isSaved} class:text-opacity-50={!isSaved}>@{author}</div>
     </div>
     <ProgressCard total={videoCount} watched={viewedCount} />
-    <button type="button" class="btn btn-secondary" disabled={isSaved} on:click={savePlaylist(playlistId)}>
+    <button type="button" class="btn btn-secondary" aria-label="Save playlist" disabled={isSaved} on:click={savePlaylist(playlistId)}>
         {#if isSaved == true}
         <i class="bi bi-bookmark-check-fill"></i>
         {:else}
         <i class="bi bi-bookmark-plus-fill"></i>
         {/if}
     </button>
-    <button type="button" class="btn btn-secondary ms-2" on:click={removeRecentPlaylist(playlistId)}>
+    <button type="button" class="btn btn-secondary ms-2" aria-label="Remove from recent" on:click={removeRecentPlaylist(playlistId)}>
         <i class="bi bi-trash-fill"></i>
     </button>
 </li>

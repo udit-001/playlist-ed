@@ -5,7 +5,7 @@
         <div class="text-body-secondary">@{author}</div>
     </div>
     <ProgressCard total={videoCount} watched={viewedCount}/>
-    <button type="button" class="btn btn-secondary" on:click={unsavePlaylist(playlistId)}>
+    <button type="button" class="btn btn-secondary" aria-label="Remove from saved" on:click={unsavePlaylist(playlistId)}>
         <i class="bi bi-bookmark-dash-fill"></i>
     </button>
 </li>
