@@ -6,7 +6,7 @@
         {/each}
     </ul>
     {:else }
-    <div class="col-12 p-4 text-center">
+    <div class="col-12 p-4 text-center" transition:fade={{ duration: 180, easing: cubicOut }}>
         <p class="mx-auto text-body-secondary">
             Nothing here yet. Paste a playlist above to get started.
         </p>
@@ -18,6 +18,8 @@
 
 <script>
     import { recentPlaylists } from '../store/playlist.js'
+    import { fade } from 'svelte/transition';
+    import { cubicOut } from 'svelte/easing';
     import RecentPlaylistItem from './RecentPlaylistItem.svelte';
     import ExampleLinks from './ExampleLinks.svelte';
 </script>

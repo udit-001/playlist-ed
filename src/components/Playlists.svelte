@@ -1,4 +1,4 @@
-<div class="row" transition:blur={{ amount: 8 }}>
+<div class="row" transition:fade={{ duration: 180, easing: cubicOut }}>
     <div class="col-md-8 col-11 mx-auto mt-3 mb-5 order-sm-last">
         <div class="card">
             <div class="card-header">
@@ -39,7 +39,8 @@
 </div>
 
 <script>
-    import { blur } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
+    import { cubicOut } from 'svelte/easing';
     import SavedPlaylists from './SavedPlaylists.svelte';
     import RecentPlaylists from './RecentPlaylists.svelte';
 </script>

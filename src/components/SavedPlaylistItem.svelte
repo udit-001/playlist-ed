@@ -1,4 +1,4 @@
-<li class="list-group-item d-flex align-items-center" transition:blur={{ amount: 7 }}>
+<li class="list-group-item d-flex align-items-center" transition:fade={{ duration: 150, easing: cubicOut }}>
     <img src={authorImg} width="36" height="36" class="img-fluid rounded-circle flex-shrink-0" alt={author}>
     <div class="mx-3 position-relative">
         <a href="/lessons/{playlistId}/{videoId}" class="stretched-link link-underline link-success link-underline-opacity-25">{title}</a>
@@ -11,7 +11,8 @@
 </li>
 
 <script>
-    import { blur } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
+    import { cubicOut } from 'svelte/easing';
     import { unsavePlaylist } from "../store/playlist.js";
     import ProgressCard from './ProgressCard.svelte';
     export let title;

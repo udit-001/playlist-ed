@@ -97,13 +97,13 @@
             transform: translateX(0);
         }
         25% {
-            transform: translateX(-10px);
+            transform: translateX(-4px);
         }
         50% {
-            transform: translateX(10px);
+            transform: translateX(4px);
         }
         75% {
-            transform: translateX(-10px);
+            transform: translateX(-4px);
         }
         100% {
             transform: translateX(0);
@@ -112,7 +112,7 @@
 
     .move {
         animation-name: shake;
-        animation-duration: 600ms;
-        animation-iteration-count: 3;
+        animation-duration: 180ms;
+        animation-iteration-count: 1;
     }
 </style>

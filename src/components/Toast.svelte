@@ -19,3 +19,16 @@
       }
     }
 </script>
+
+<style>
+    /* Anchored to the bottom edge, so it enters from that edge. Overrides the
+       framework's opacity-only fade, which has no spatial story. */
+    .toast {
+        transform: translateY(100%);
+        transition: transform 300ms var(--ease-out), opacity 200ms var(--ease-out);
+    }
+
+    .toast.show {
+        transform: translateY(0);
+    }
+</style>
