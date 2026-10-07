@@ -8,8 +8,7 @@
 </script>
 
 <style>
-  /* The row can now shrink its text column, which would otherwise squeeze this
-     badge until "3/26" wrapped onto two lines. */
+  /* Without this the now-shrinkable text column squeezes "3/26" onto two lines. */
   .progress-badge {
     flex-shrink: 0;
     white-space: nowrap;

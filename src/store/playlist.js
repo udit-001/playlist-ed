@@ -86,9 +86,7 @@ export async function fetchPlaylist(playlistId){
     let data = null;
     let lastError = null;
 
-    // A transient failure was observed in production: one request reported the
-    // playlist as unavailable, and the next request for the same playlist
-    // succeeded. One retry absorbs that class of failure.
+    // A transient failure was observed in production; one retry absorbs that class.
     for(let attempt = 0; attempt < MAX_ATTEMPTS && data === null; attempt++){
         if(attempt > 0){
             await delay(RETRY_DELAY_MS);
@@ -109,8 +107,7 @@ export async function fetchPlaylist(playlistId){
         throw lastError ?? new Error('That playlist has no videos.');
     }
 
-    // Stored without the video list: the lesson page refetches it, and keeping
-    // every video title in localStorage is wasteful.
+    // Stored without the video list; the lesson page refetches it.
     const { videos, ...metadata } = data;
     const playlistData = { ...metadata, completed: [] };
     addRecentPlaylist(playlistData);

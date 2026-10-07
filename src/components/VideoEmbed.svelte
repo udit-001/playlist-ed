@@ -12,14 +12,8 @@
     export let loading;
     export let videoId;
 
-    // YouTube removed the parameters that used to strip its own chrome
-    // (modestbranding in 2023, showinfo in 2018), so the title and channel
-    // avatar always show before playback, on pause, and at the end. These are
-    // the ones that still do something:
-    //   rel=0            related videos limited to the same channel
-    //   iv_load_policy=3 no annotation cards
-    //   playsinline=1    no forced fullscreen on iOS
-    //   color=white      progress bar matches the dark theme
+    // modestbranding and showinfo no longer work, so YouTube's title and channel
+    // avatar cannot be hidden from an embed.
     const EMBED_PARAMS = 'rel=0&iv_load_policy=3&playsinline=1&color=white';
 
     let videoUrl;

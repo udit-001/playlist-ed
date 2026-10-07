@@ -5,9 +5,7 @@ let clientPromise;
 
 function getClient() {
     if (!clientPromise) {
-        // retrieve_player: false skips fetching and parsing YouTube's player
-        // script. That script is the only path that needs a JS evaluator, which
-        // Workers do not allow. Playlist metadata does not need it.
+        // Skips the player script, the only path needing an evaluator Workers forbid.
         clientPromise = Innertube.create({ retrieve_player: false });
     }
     return clientPromise;
@@ -33,9 +31,7 @@ function pickThumbnail(thumbnails, target = 480) {
     ).url;
 }
 
-// YouTube returns playlist entries as either PlaylistVideo (id/title) or
-// LockupView (content_id/content_type + metadata.title), depending on which
-// surface answered. Normalise both to { name, watchId }, or null to skip.
+// Entries come as PlaylistVideo (id) or LockupView (content_id); normalise both.
 function normalizeItem(item) {
     if (!item) return null;
 
@@ -87,8 +83,7 @@ export async function GET({ url }) {
 
     const info = first.info ?? {};
 
-    // YouTube returns roughly 100 items per page, so page through the rest to
-    // match what the Invidious endpoint returned in a single response.
+    // About 100 items per page, so page through to return long playlists whole.
     const videos = [];
     let page = first;
     for (let i = 0; i < MAX_PAGES && page; i++) {

@@ -13,8 +13,7 @@
 
     $: {
       if($toastMessage !== ''){
-        // Clear the previous timer first. Without this, an older message's
-        // timeout fires early and cuts a newer message short.
+        // Clear the previous timer, or an older message's timeout cuts a newer one short.
         clearTimeout(timer);
         timer = setTimeout(function() { $toastMessage = ""}, 5000);
       }

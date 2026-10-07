@@ -17,9 +17,7 @@ const { metaPlaceholder } = Astro.props;
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@2.0.1/css/cores/halfmoon.cores.css" rel="stylesheet" integrity="sha256-MAzAVJMU/ze52ZHcA8CeqRrCOVndMZlHwNeS2c73vP4=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
-        // Sentry reports only from the deployed site. `import.meta.env.PROD` is
-        // false under `astro dev`; the hostname check also covers serving a
-        // production build locally, where PROD is true because it was built.
+        // PROD alone misses a locally-served production build, hence the hostname check.
         const isLocalHost = ['localhost', '127.0.0.1', '0.0.0.0', '[::1]']
             .includes(window.location.hostname);
 
@@ -45,20 +43,15 @@ const { metaPlaceholder } = Astro.props;
 </html>
 
 <style is:global>
-    /* A YouTube title or channel handle can contain one unbreakable token - a
-       URL, or a long channel name with no spaces. A flex item floors at its
-       min-content size, so without this the row overflows its container and
-       pushes the row's own controls outside it. `anywhere` rather than
-       `break-word`, because only `anywhere` also shrinks the intrinsic
-       min-content size, which is what lets the flex item shrink at all. */
+    /* `anywhere`, not `break-word`: only `anywhere` shrinks the min-content size,
+       which is what lets the flex item shrink. */
     .list-group-item > div,
     .sidebar-nav .nav-link {
         min-width: 0;
         overflow-wrap: anywhere;
     }
 
-    /* Rows and page transitions animate. Collapse them for anyone who asks
-       for less motion. */
+    /* Collapse animation for anyone who asks for less motion. */
     @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
