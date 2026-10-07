@@ -11,46 +11,83 @@ export const savedPlaylists = persistentAtom('savedPlaylists', [], {
     decode: JSON.parse
 });
 
-export async function fetchPlaylist(playlistId){
-    if(apiInvidiousInstances.get().length > 0){
-        var baseUrl = apiInvidiousInstances.get()[Math.floor(Math.random() * apiInvidiousInstances.get().length)]["uri"];
-        const url = baseUrl + "/api/v1/playlists/" + playlistId;
-        const response = await fetch(url).then(response => {
-        if(!response.ok){
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json()
-        }).then(
-            data=>{
-                var playlistData = {
-                    title : data["title"],
-                    playlistId : data["playlistId"],
-                    author: data["author"],
-                    authorImg : data["authorThumbnails"][data["authorThumbnails"].length - 2]["url"],
-                    playlistThumbnail: data["playlistThumbnail"],
-                    videoCount: data['videoCount'],
-                    completed: []
-                }
-                const videos = data['videos'];
-                var output = [];
-                for (let i = 0; i < videos.length; i++) {
-                    if(i === 0){
-                        playlistData['recentVideo'] = videos[i].videoId;
-                    }
-                    const videoId = videos[i].videoId;
-                    const title = videos[i].title;
-                    output.push({'name': title, 'watchId': videoId});
-                }
-                addRecentPlaylist(playlistData);
-                playlistData["videos"] = output;
-                return playlistData;
-            }
-        );
-        return response;
-    }
-    else{
+async function fetchPlaylistFromInvidious(playlistId){
+    const instances = apiInvidiousInstances.get();
+    if(instances.length === 0){
         return null;
     }
+
+    const baseUrl = instances[Math.floor(Math.random() * instances.length)]["uri"];
+    const response = await fetch(baseUrl + "/api/v1/playlists/" + playlistId);
+    if(!response.ok){
+        throw new Error(`Invidious responded with ${response.status}`);
+    }
+
+    const data = await response.json();
+    const videos = data['videos'] ?? [];
+    if(videos.length === 0){
+        return null;
+    }
+
+    return {
+        title: data['title'],
+        playlistId: data['playlistId'] ?? playlistId,
+        author: data['author'],
+        authorImg: data['authorThumbnails'][data['authorThumbnails'].length - 2]['url'],
+        playlistThumbnail: data['playlistThumbnail'],
+        videoCount: data['videoCount'],
+        recentVideo: videos[0].videoId,
+        videos: videos.map(video => ({ name: video.title, watchId: video.videoId }))
+    };
+}
+
+async function fetchPlaylistFromApi(playlistId){
+    const response = await fetch('/api/playlist?id=' + encodeURIComponent(playlistId));
+    if(!response.ok){
+        // Prefer the endpoint's reason over a bare status code.
+        let reason = null;
+        try{
+            reason = (await response.json())?.error;
+        }
+        catch{
+            // Body was not JSON; fall through to the status.
+        }
+        throw new Error(reason ?? `Playlist API responded with ${response.status}`);
+    }
+    return await response.json();
+}
+
+export async function fetchPlaylist(playlistId){
+    let data = null;
+
+    try{
+        data = await fetchPlaylistFromInvidious(playlistId);
+    }
+    catch(error){
+        console.warn('Invidious lookup failed, falling back to the playlist API.', error);
+    }
+
+    if(data === null){
+        try{
+            data = await fetchPlaylistFromApi(playlistId);
+        }
+        catch(error){
+            console.error('Playlist API lookup failed.', error);
+            throw error;
+        }
+    }
+
+    if(!Array.isArray(data?.videos) || data.videos.length === 0){
+        throw new Error('That playlist has no videos.');
+    }
+
+    // Stored without the video list: the lesson page refetches it, and keeping
+    // every video title in localStorage is wasteful.
+    const { videos, ...metadata } = data;
+    const playlistData = { ...metadata, completed: [] };
+    addRecentPlaylist(playlistData);
+
+    return { ...playlistData, videos };
 }
 
 export function addRecentPlaylist(playlistData){

@@ -16,7 +16,8 @@
     "@sentry/browser": "^7.98.0",
     "astro": "^4.7.0",
     "nanostores": "^0.9.5",
-    "svelte": "^4.2.8"
+    "svelte": "^4.2.8",
+    "youtubei.js": "^18.1.0"
   },
   "devDependencies": {
     "wrangler": "^4.148.0"

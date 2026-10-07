@@ -41,18 +41,18 @@
             var playlistId = extractPlaylistId(url);
             disabled = true;
             loadingButton = true;
-            var data = await fetchPlaylist(playlistId);
-            if(data !== null){
+            try{
+                var data = await fetchPlaylist(playlistId);
                 $lessons = data;
 
                 var videoId = data['videos'][0]['watchId'];
                 prefetch("lessons/" + playlistId + "/" +  videoId, { with: 'fetch' });
                 navigate("lessons/" + playlistId + "/" +  videoId);
-                loadingButton = false;
-                disabled = false;
             }
-            else{
-                $toastMessage = "An error ocurred while fetching data :(";
+            catch(error){
+                $toastMessage = error?.message ?? "Could not load that playlist.";
+            }
+            finally{
                 loadingButton = false;
                 disabled = false;
             }
