@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a class="nav-link" class:active={isActive} class:icon-link={completed} class:link-success={completed && !isActive} class:link-opacity-75={completed && !isActive} class:link-opacity-100-hover={completed && !isActive} {href} aria-current={isActive ? 'page' : undefined} data-astro-history="push"
+    <a class="nav-link" class:active={isActive} class:icon-link={completed} class:link-success={completed && !isActive} {href} aria-current={isActive ? 'page' : undefined} data-astro-history="push"
         bind:this={linkElement}>
         {#if completed}<i class="bi bi-check-circle-fill"></i>{/if}{title}</a>
 </li>
@@ -31,18 +31,3 @@
         }
     });
 </script>
-
-
-<style>
-    .link-success {
-        color: hsla(var(--bs-success-text-emphasis-hsl), var(--bs-link-opacity, 1)) !important;
-    }
-
-    .link-success:hover {
-        color: hsla(var(--bs-success-text-emphasis-hsl), var(--bs-link-opacity, 1));
-    }
-
-    .link-underline-success{
-        text-decoration-color: hsla(var(--bs-success-hsl),var(--bs-link-underline-opacity)) !important;
-    }
-</style>
