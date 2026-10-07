@@ -57,7 +57,15 @@ async function fetchPlaylistFromApi(playlistId){
     return await response.json();
 }
 
-export async function fetchPlaylist(playlistId){
+const RETRY_DELAY_MS = 600;
+const MAX_ATTEMPTS = 2;
+
+function delay(ms){
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// One pass: Invidious first, then our endpoint.
+async function acquirePlaylist(playlistId){
     let data = null;
 
     try{
@@ -68,17 +76,37 @@ export async function fetchPlaylist(playlistId){
     }
 
     if(data === null){
+        data = await fetchPlaylistFromApi(playlistId);
+    }
+
+    return data;
+}
+
+export async function fetchPlaylist(playlistId){
+    let data = null;
+    let lastError = null;
+
+    // A transient failure was observed in production: one request reported the
+    // playlist as unavailable, and the next request for the same playlist
+    // succeeded. One retry absorbs that class of failure.
+    for(let attempt = 0; attempt < MAX_ATTEMPTS && data === null; attempt++){
+        if(attempt > 0){
+            await delay(RETRY_DELAY_MS);
+        }
         try{
-            data = await fetchPlaylistFromApi(playlistId);
+            const candidate = await acquirePlaylist(playlistId);
+            if(Array.isArray(candidate?.videos) && candidate.videos.length > 0){
+                data = candidate;
+            }
         }
         catch(error){
-            console.error('Playlist API lookup failed.', error);
-            throw error;
+            lastError = error;
+            console.warn(`Playlist lookup attempt ${attempt + 1} failed.`, error);
         }
     }
 
-    if(!Array.isArray(data?.videos) || data.videos.length === 0){
-        throw new Error('That playlist has no videos.');
+    if(data === null){
+        throw lastError ?? new Error('That playlist has no videos.');
     }
 
     // Stored without the video list: the lesson page refetches it, and keeping
