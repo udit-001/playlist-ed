@@ -1,5 +1,4 @@
-{#if $invidiousInstances.length > 0}
-<Header {loading} {videoId}/>
+<Header {loading} {videoId} />
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-lg-12">
@@ -11,11 +10,9 @@
     </VideoButtons>
 <Sidebar {loading} {videoId}/>
 </div>
-{/if}
 
 <script>
     import { onMount } from 'svelte';
-    import { invidiousInstances, fetchInvidiousInstances } from '../store/invidious.js';
     import { fetchPlaylist, addRecentVideo } from '../store/playlist.js';
     import { lessons, nextVideo, prevVideo, sidebarQuery, completedVideos, toastMessage } from '../store/state.js';
     import MarkCompleted from './MarkCompleted.svelte'
@@ -35,12 +32,6 @@
 	onMount(async () => {
         if(playlistId !== undefined){
             try{
-                if($invidiousInstances.length == 0){
-                    await fetchInvidiousInstances();
-                    if($invidiousInstances.length === 0){
-                        throw "Error"
-                    }
-                }
                 if(Object.keys($lessons).length === 0 || $lessons['playlistId'] !== playlistId){
                     $lessons = await fetchPlaylist(playlistId);
                     currentIndex = $lessons['videos'].findIndex(item => item['watchId'] == videoId);

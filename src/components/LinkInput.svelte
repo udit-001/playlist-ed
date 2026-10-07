@@ -1,5 +1,4 @@
 <script>
-    import { useInvidious } from "../store/userPreferences.js"
     import { invidiousInstances, fetchInvidiousInstances } from "../store/invidious.js"
     import { fetchPlaylist } from "../store/playlist.js";
     import { playlistLink, exampleClicked, lessons, toastMessage } from "../store/state.js";
@@ -80,19 +79,6 @@
             <label for="example-input-7">YouTube Playlist URL</label>
         </div>
         <div class="invalid-feedback">Please enter a valid playlist URL.</div>
-    </div>
-    <div class="form-check">
-        <input
-            class="form-check-input"
-            type="checkbox"
-            name="invidious"
-            id="invidious"
-            bind:checked={$useInvidious}
-            disabled={loadingButton}
-        />
-        <label class="form-check-label" for="invidious">
-            Use Invidious Embeds
-        </label>
     </div>
     <div class="col-12 text-center">
         <button class="btn btn-primary btn-lg ps-4 pe-4 py-1" class:disabled={disabled} class:move={$exampleClicked} type="submit">
