@@ -76,7 +76,7 @@
                 bind:value={$playlistLink}
                 disabled={loadingButton}
             />
-            <label for="example-input-7">YouTube Playlist URL</label>
+            <label for="playlisturl">YouTube Playlist URL</label>
         </div>
         <div class="invalid-feedback">Please enter a valid playlist URL.</div>
     </div>
