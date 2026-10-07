@@ -1,17 +1,12 @@
 ---
-var pageTitle = "Playlist-Ed"
-var metaTitle = "Playlist-Ed: Your solution to chaotic study sessions";
-var metaDescription = "Streamline your study sessions by curating clutter-free, uninterrupted playlists for your focused learning."
-var metaImage = "/images/playlist-ed-banner.png"
+import { META_PLACEHOLDERS, META_DEFAULTS } from '../lib/meta.js';
 
 const { metaPlaceholder } = Astro.props;
 
-if(metaPlaceholder){
-    pageTitle = "META TITLE";
-    metaTitle = "META TITLE";
-    metaDescription = "META DESCRIPTION";
-    metaImage = "META IMAGE";
-}
+const pageTitle = metaPlaceholder ? META_PLACEHOLDERS.title : META_DEFAULTS.pageTitle;
+const metaTitle = metaPlaceholder ? META_PLACEHOLDERS.title : META_DEFAULTS.title;
+const metaDescription = metaPlaceholder ? META_PLACEHOLDERS.description : META_DEFAULTS.description;
+const metaImage = metaPlaceholder ? META_PLACEHOLDERS.image : META_DEFAULTS.image;
 ---
 
 <title>{pageTitle}</title>

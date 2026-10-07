@@ -1,106 +1,69 @@
 import { defineMiddleware } from "astro/middleware";
+import { META_PLACEHOLDERS, META_DEFAULTS } from "./lib/meta.js";
 
-export async function fetchInvidiousInstances(){
-    let invidiousAPIUrl = 'https://api.invidious.io/instances.json?sort_by=health'
-    const response = await fetch(invidiousAPIUrl).then(response => response.json()).then(
-        data => {
-            let filteredUrls = [];
-            for(let i = 0; i < data.length; i++){
-                var currentItem = data[i];
-                if(currentItem['type'] === 'https'){
-                    if(currentItem["uri"] === "https://invidious.perennialte.ch"){
-                      continue;
-                    }
-                    if(currentItem.hasOwnProperty('stats')){
-                        var stats = currentItem['stats'];
-                        if(
-                            stats != null && Object.keys(stats['playback']).length > 0){
-                            if(stats['playback']['ratio'] > 0.0){
-                                filteredUrls.push({
-                                    "uri": currentItem["uri"],
-                                    "cors": currentItem["cors"],
-                                    "api": currentItem["api"]
-                                });
-                            }
-                        }
-                        else if(currentItem['monitor'] !== null && parseFloat(currentItem['monitor']['30dRatio']['ratio']) > 0.0){
-                            filteredUrls.push({
-                                "uri": currentItem["uri"],
-                                "cors": currentItem["cors"],
-                                "api": currentItem["api"]
-                            });
-                        }
-                    }
-                }
-            }
-            return filteredUrls;
-        }
-    ).catch(error => null)
-    if(response){
-        return response;
-    }
-    else{
-        return null;
-    }
-  }
+const OEMBED_ENDPOINT = "https://www.youtube.com/oembed";
+const REQUEST_TIMEOUT_MS = 5000;
+const MAX_ATTEMPTS = 2;
 
+// The User-Agent is a precaution: oEmbed answers without one, but YouTube bot-checks
+// non-browser clients on some endpoints.
+async function fetchVideoDetails(videoId){
+    const target = encodeURIComponent("https://www.youtube.com/watch?v=" + videoId);
 
-export async function fetchVideoDetails(videoId){
-    let instances = await fetchInvidiousInstances();
-    if(instances.length !== 0){
-        let apiInstances = instances.filter(i => i['api'] === true);
-        var baseUrl = apiInstances[0]['uri'];
-        const url = baseUrl + "/api/v1/videos/" + videoId;
-        const data = await fetch(url).then(response => {
+    for(let attempt = 0; attempt < MAX_ATTEMPTS; attempt++){
+        try{
+            const response = await fetch(`${OEMBED_ENDPOINT}?url=${target}&format=json`, {
+                headers: {
+                    accept: "application/json",
+                    "User-Agent": "Mozilla/5.0"
+                },
+                signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS)
+            });
+
             if(!response.ok){
-                return null;
+                continue;
             }
-            return response.json()
-        }).catch((e)  => {
-            console.log(e);
-        })
-        if (data){
-            return {
-                title : data["title"],
-                thumbnail: data["videoThumbnails"][0]["url"]
-            }
-        }
-        else{
-            return null
-        }
 
+            const data = await response.json();
+            return {
+                title: String(data.title ?? "").trim(),
+                thumbnail: String(data.thumbnail_url ?? "").trim()
+            };
+        }
+        catch(error){
+            console.warn(`oEmbed lookup attempt ${attempt + 1} failed for ${videoId}.`, error);
+        }
     }
-    else{
-        return null;
-    }
+
+    return null;
 }
 
 export const onRequest = async (context, next) => {
-    if (context.url.pathname.includes("lessons") === true) {
-        var videoId  = context.url.pathname.split("/")[3];
-        var videoData = await fetchVideoDetails(videoId);
-        if(videoData !== null){
-            const response = await next();
-            const html = await response.text();
-            const title = videoData.title + " | Playlist-Ed";
-            var updatedHtml = html.replaceAll("META TITLE", title).replaceAll("META IMAGE", videoData.thumbnail).replaceAll("META DESCRIPTION", "View on Playlist-Ed")
-            return new Response(updatedHtml, {
-                status: 200,
-                headers: response.headers
-            });
-        }
-        else{
-            const response = await next();
-            const html = await response.text();
-            var title = "Playlist-Ed: Your solution to chaotic study sessions";
-            var thumbnail = "/images/playlist-ed-banner.png";
-            var description = "Streamline your study sessions by curating clutter-free, uninterrupted playlists for your focused learning.";
-            var updatedHtml = html.replaceAll("META TITLE", title).replaceAll("META IMAGE", thumbnail).replaceAll("META DESCRIPTION", description)
-            return new Response(updatedHtml, {
-                status: 200,
-                headers: response.headers
-            });
-        }
+    const response = await next();
+
+    if(!context.url.pathname.includes("lessons")){
+        return response;
     }
-    return next();
-    };
+
+    const videoId = context.url.pathname.split("/")[3];
+    const video = videoId ? await fetchVideoDetails(videoId) : null;
+
+    const title = video?.title ? video.title + " | Playlist-Ed" : META_DEFAULTS.title;
+    const thumbnail = video?.thumbnail || META_DEFAULTS.image;
+    const description = video?.title ? "View on Playlist-Ed" : META_DEFAULTS.description;
+
+    const html = await response.text();
+    const updatedHtml = html
+        .replaceAll(META_PLACEHOLDERS.title, title)
+        .replaceAll(META_PLACEHOLDERS.image, thumbnail)
+        .replaceAll(META_PLACEHOLDERS.description, description);
+
+    // The body length changed, so a carried-over content-length would be wrong.
+    const headers = new Headers(response.headers);
+    headers.delete("content-length");
+
+    return new Response(updatedHtml, {
+        status: response.status,
+        headers
+    });
+};
