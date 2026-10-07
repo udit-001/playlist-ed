@@ -17,10 +17,6 @@ No signup and no account. Your playlists, progress, and preferences live in your
 <img src="/docs/screenshots/lesson-screen.png" alt="Playlist-Ed lesson screen" width="720">
 </div>
 
-<br>
-
-> **Note:** Our playlist embedding service is temporarily unavailable. Here's a preview of Playlist-Ed's clean, distraction-free interface.
-
 ## Features
 
 - **Watch distraction-free:** a bare video player with none of the YouTube interface around it.
