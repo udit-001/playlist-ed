@@ -1,5 +1,5 @@
 <div class="video-links text-center mt-2">
-    <p>For inspiration, here are a few playlists you might enjoy:</p>
+    <p>Try one of these:</p>
     <ul class="list-unstyled mt-1">
       {#each links as link}
       <li><a href={link.url} target="#" on:click|preventDefault={() => onClick(link.url)}>{link.name}</a></li>

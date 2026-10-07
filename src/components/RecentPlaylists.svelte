@@ -8,10 +8,9 @@
     {:else }
     <div class="col-12 p-4 text-center">
         <p class="mx-auto text-body-secondary">
-            Nothing here yet! 🌟 Start watching your favorite playlists to see them pop up!<br/>
-        Just a heads up, recently viewed playlists make way for new discoveries after a while. 📺✨
-            <ExampleLinks />
+            Nothing here yet. Paste a playlist above to get started.
         </p>
+        <ExampleLinks />
      </div>
     {/if}
 </div>
