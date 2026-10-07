@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a class="nav-link" class:active={isActive} class:icon-link={completed} class:link-success={completed && !isActive} class:link-opacity-50={completed && !isActive} {href} aria-pressed="true" data-astro-history="push"
+    <a class="nav-link" class:active={isActive} class:icon-link={completed} class:link-success={completed && !isActive} class:link-opacity-50={completed && !isActive} {href} aria-current={isActive ? 'page' : undefined} data-astro-history="push"
         bind:this={linkElement}>
         {#if completed}<i class="bi bi-check-circle-fill"></i>{/if}{title}</a>
 </li>

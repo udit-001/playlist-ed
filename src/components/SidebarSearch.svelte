@@ -1,7 +1,7 @@
 <div class="filter-docs sticky-top p-3">
     <div class="input-group">
     <input type="text" class="form-control" placeholder="Search" aria-label="Search" bind:value={$sidebarQuery} aria-labelledby="search-help-block">
-    <button type="button" class="btn btn-secondary" aria-label="Close" on:click={clearQuery} aria-expanded="false" class:d-none={$sidebarQuery === ""} class:rounded={$sidebarQuery === ""}>
+    <button type="button" class="btn btn-secondary" aria-label="Clear search" on:click={clearQuery} aria-expanded="false" class:d-none={$sidebarQuery === ""} class:rounded={$sidebarQuery === ""}>
         <i class="bi bi-x"></i>
     </button>
     <SidebarFilter />

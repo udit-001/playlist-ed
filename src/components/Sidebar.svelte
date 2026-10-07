@@ -26,6 +26,10 @@
                 {#each {length: 8} as _, i}
                   <span class="placeholder col-12 placeholder-lg mb-2 placeholder-wave" class:d-none={!loading}></span>
                 {/each}
+              {:else if (filteredVideos ?? []).length === 0}
+                <li class="text-body-secondary text-center p-3">
+                  No videos match your search or filter.
+                </li>
               {:else}
                 {#each filteredVideos as lesson, index}
                   <SidebarItem title={lesson.name} {index} isActive={lesson.watchId === videoId} watchId={lesson.watchId} completed={$completedVideos.includes(lesson.watchId)}/>

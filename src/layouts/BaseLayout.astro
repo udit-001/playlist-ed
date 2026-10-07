@@ -34,3 +34,30 @@ const { metaPlaceholder } = Astro.props;
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "8e20fbf37f3d47e3b40656eaea4aaad9"}'></script>
 </body>
 </html>
+
+<style is:global>
+    /* A YouTube title or channel handle can contain one unbreakable token - a
+       URL, or a long channel name with no spaces. A flex item floors at its
+       min-content size, so without this the row overflows its container and
+       pushes the row's own controls outside it. `anywhere` rather than
+       `break-word`, because only `anywhere` also shrinks the intrinsic
+       min-content size, which is what lets the flex item shrink at all. */
+    .list-group-item > div,
+    .sidebar-nav .nav-link {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    /* Rows and page transitions animate. Collapse them for anyone who asks
+       for less motion. */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+</style>
