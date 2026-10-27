@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^10.4.2",
-    "@astrojs/svelte": "^5.4.0",
+    "@astrojs/cloudflare": "^14.4.2",
+    "@astrojs/svelte": "^9.1.1",
     "@nanostores/persistent": "^0.9.1",
     "@sentry/browser": "^7.98.0",
-    "astro": "^4.7.0",
+    "astro": "^7.4.2",
     "nanostores": "^0.9.5",
     "svelte": "^4.2.8",
     "youtubei.js": "^18.1.0"
